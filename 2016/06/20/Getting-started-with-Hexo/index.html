@@ -1,0 +1,316 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Getting started with Hexo | kohit&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Wind Vane">
+    
+    <meta name="description" content="这篇文章介绍了如何在windows环境下安装并运行Hexo以及将项目部署到gitHub上。Hexo在windows上的安装比较简单，不会像linux或mac那样执行每条指令都可能遇到麻烦
+安装Nodejs在Nodejs官网下载面向windows的安装包并运行安装即可
+检查安装：打开cmd，并输入1n">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="kohit&#39;s blog">kohit&#39;s blog</a></h1>
+				<h2 class="blog-motto">D.va上线啦</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:kohit.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/06/20/Getting-started-with-Hexo/" title="Getting started with Hexo" itemprop="url">Getting started with Hexo</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://kohit.github.io" title="Wind Vane">Wind Vane</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-06-20T10:07:34.000Z" itemprop="datePublished">2016-06-20</time>
+    更新日期:<time datetime="2016-06-20T12:40:24.170Z" itemprop="dateModified">2016-06-20</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Nodejs"><span class="toc-number">1.</span> <span class="toc-text">安装Nodejs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装git"><span class="toc-number">2.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Hexo"><span class="toc-number">3.</span> <span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建博客"><span class="toc-number">4.</span> <span class="toc-text">创建博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发布博客到github"><span class="toc-number">5.</span> <span class="toc-text">发布博客到github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建repository"><span class="toc-number">5.1.</span> <span class="toc-text">创建repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改配置文件"><span class="toc-number">5.2.</span> <span class="toc-text">修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装hexo的git部署工具"><span class="toc-number">5.3.</span> <span class="toc-text">安装hexo的git部署工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布到github"><span class="toc-number">5.4.</span> <span class="toc-text">发布到github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在github上浏览博客"><span class="toc-number">5.5.</span> <span class="toc-text">在github上浏览博客</span></a></li></ol></li></ol>
+		</div>
+		
+		<p>这篇文章介绍了如何在windows环境下安装并运行Hexo以及将项目部署到gitHub上。<br>Hexo在windows上的安装比较简单，不会像linux或mac那样执行每条指令都可能遇到麻烦</p>
+<h2 id="安装Nodejs"><a href="#安装Nodejs" class="headerlink" title="安装Nodejs"></a>安装Nodejs</h2><p>在<a href="https://nodejs.org/en/" target="_blank" rel="external">Nodejs</a>官网下载面向windows的安装包并运行安装即可</p>
+<p>检查安装：打开cmd，并输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure></p>
+<p>如果输出版本信息，则安装成功</p>
+<h2 id="安装git"><a href="#安装git" class="headerlink" title="安装git"></a>安装git</h2><p>下载<a href="https://git-scm.com/download" target="_blank" rel="external">git</a>面向windows的安装包并运行安装</p>
+<p>检查安装：打开cmd，并输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git version</span><br></pre></td></tr></table></figure></p>
+<p>如果输出版本信息，则安装成功</p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h2><p>打开cmd，并输入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br></pre></td></tr></table></figure></p>
+<h2 id="创建博客"><a href="#创建博客" class="headerlink" title="创建博客"></a>创建博客</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog              //这里的blog是所要创建的博客文件夹名(当前目录下）</span><br><span class="line"><span class="built_in">cd</span> blog                     //进入blog文件夹内</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<p>执行以上步骤即创建了名为blog的文件夹，其中包含了项目文件，执行hexo server指令会运行服务器，这时可在浏览器中访问<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a><br>如果显示网站，则博客创建成功</p>
+<h2 id="发布博客到github"><a href="#发布博客到github" class="headerlink" title="发布博客到github"></a>发布博客到github</h2><p><a href="https://github.com/" target="_blank" rel="external">github</a>为用户提供了username.github.io的域名，其中username为用户在github上的用户名.</p>
+<h3 id="创建repository"><a href="#创建repository" class="headerlink" title="创建repository"></a>创建repository</h3><p>为了使博客在username.github.io中展示，你需要在github中创建同名的repo</p>
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>hexo项目的根目录下的_config.yml文件为全局配置文件，在该文件中编辑# Deployment栏目并保存<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: https://github.com/username/username.github.io.git //username修改为用户名</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装hexo的git部署工具"><a href="#安装hexo的git部署工具" class="headerlink" title="安装hexo的git部署工具"></a>安装hexo的git部署工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<h3 id="发布到github"><a href="#发布到github" class="headerlink" title="发布到github"></a>发布到github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<p>hexo clean指令清除缓存文件，hexo d为hexo deploy的简写，该指令将编译项目，并将public目录下的内容上传到github.</p>
+<h3 id="在github上浏览博客"><a href="#在github上浏览博客" class="headerlink" title="在github上浏览博客"></a>在github上浏览博客</h3><p>浏览器打开username.github.io即可查看位于username.github.io仓库中的博客</p>
+<p>以上步骤仅为向导，方案不止一种，具体指令含义请关注后续文章。</p>
+<p>参考：<a href="https://hexo.io/docs/" target="_blank" rel="external">hexo docs</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Nodejs/">Nodejs</a><a href="/tags/Hexo/">Hexo</a><a href="/tags/Web/">Web</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Nodejs/">Nodejs</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://kohit.github.io/2016/06/20/Getting-started-with-Hexo/" data-title="Getting started with Hexo | kohit&#39;s blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/06/20/Create-new-Post-in-Hexo/"  title="Create new Post in Hexo">
+ <strong>NEXT:</strong><br/> 
+ <span>Create new Post in Hexo
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Nodejs"><span class="toc-number">1.</span> <span class="toc-text">安装Nodejs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装git"><span class="toc-number">2.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装Hexo"><span class="toc-number">3.</span> <span class="toc-text">安装Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建博客"><span class="toc-number">4.</span> <span class="toc-text">创建博客</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发布博客到github"><span class="toc-number">5.</span> <span class="toc-text">发布博客到github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建repository"><span class="toc-number">5.1.</span> <span class="toc-text">创建repository</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改配置文件"><span class="toc-number">5.2.</span> <span class="toc-text">修改配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装hexo的git部署工具"><span class="toc-number">5.3.</span> <span class="toc-text">安装hexo的git部署工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布到github"><span class="toc-number">5.4.</span> <span class="toc-text">发布到github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在github上浏览博客"><span class="toc-number">5.5.</span> <span class="toc-text">在github上浏览博客</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <br>
+      &copy; 2016 Wind Vane<br>
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+       &amp; theme based on  <a href="https://github.com/A-limon/pacman" target="_blank">pacman</a>
+    </div>
+  </div>
+</footer></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>
