@@ -1,0 +1,869 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Basic commands of linux | kohit&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Wind Vane">
+    
+    <meta name="description" content="LinuxFoundationX: LFS101x.2 Introduction to Linux
+
+#Exploring the Filesystem
+##cd 切换目录12345678cd //切换到主目录cd ~ //同上cd - //回到上一次访问的目录cd .. //回到上一层目录cd /">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="kohit&#39;s blog">kohit&#39;s blog</a></h1>
+				<h2 class="blog-motto">D.va上线啦</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:kohit.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/07/14/basic-commands-of-linux/" title="Basic commands of linux" itemprop="url">Basic commands of linux</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://kohit.github.io" title="Wind Vane">Wind Vane</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-07-14T10:23:39.634Z" itemprop="datePublished">2016-07-14</time>
+    更新日期:<time datetime="2016-07-14T10:30:04.142Z" itemprop="dateModified">2016-07-14</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#root"><span class="toc-number">1.</span> <span class="toc-text">root</span></a></li></ol>
+		</div>
+		
+		<blockquote>
+<p>LinuxFoundationX: LFS101x.2 Introduction to Linux</p>
+</blockquote>
+<p>#Exploring the Filesystem</p>
+<p>##cd 切换目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd //切换到主目录</span><br><span class="line">cd ~ //同上</span><br><span class="line">cd - //回到上一次访问的目录</span><br><span class="line">cd .. //回到上一层目录</span><br><span class="line">cd /blabla //绝对地址，从 / 开始</span><br><span class="line">cd blabla //相对地址，从当前目录开始</span><br><span class="line">cd ./blabla //同上</span><br><span class="line">cd .//blabla //同上，多个///可视作一个/</span><br></pre></td></tr></table></figure></p>
+<p>##pwd 显示当前目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure></p>
+<p>##ls 显示目录下的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls //显示当前目录下的内容</span><br><span class="line">ls -a //显示当前目录下的内容，包括隐藏文件</span><br><span class="line">ls -l //显示更详细的内容，包括日期，大小，权限等</span><br><span class="line">ls -i //显示inode</span><br><span class="line">l //显示目录下的内容（Ubuntu）</span><br></pre></td></tr></table></figure></p>
+<p>##tree 按树的结构显示目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree //当面目录按树结构展示</span><br><span class="line">tree -d //只展示目录</span><br></pre></td></tr></table></figure></p>
+<p>##mkdir 新建目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir blabla //在当前目录新建blabla文件夹</span><br><span class="line">mkdir ./blabla //同上</span><br><span class="line">mkdir bla/blabla //在当前目录下的bla文件夹内新建blabla文件夹</span><br></pre></td></tr></table></figure></p>
+<p>##rm -r 删除文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r blabla //删除当前目录下的blabla文件夹</span><br></pre></td></tr></table></figure></p>
+<p>##ln 链接Links<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ln file1 file2 //hard link，inode相同，相当于取别名，删除一个链接不会删除文件（如有有其他别名的话）</span><br><span class="line">ln -s file1 file2 //soft link，inode不同</span><br><span class="line">ln -s bla/blabla blabla // bla/blabla可以是文件夹</span><br><span class="line">ln -s bla // 空链接（dangling link）</span><br><span class="line">// 不同的编辑器可能对链接的文件的操作方式不同，可能在同一个文件修改，也可能新建一个文件</span><br></pre></td></tr></table></figure></p>
+<p>##pushd 前往并将目录压栈<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushd tmp //前往当前目录下的tmp文件夹（跟cd相同），同时将tmp文件夹压栈</span><br></pre></td></tr></table></figure></p>
+<p>##popd 弹出并前往栈顶目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">popd</span><br></pre></td></tr></table></figure></p>
+<p>##dirs 查看栈中的目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirs</span><br></pre></td></tr></table></figure></p>
+<p>#Searching for Files</p>
+<p>##locate 查找所有匹配的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate zip | grep bin //查找zip，结果当作输入给后面的grep指令，再进一步缩小范围</span><br></pre></td></tr></table></figure></p>
+<p>locate是通过文件的数据库查找的，数据库通常1天更新一次，可以手动更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">updatedb //更新数据库</span><br></pre></td></tr></table></figure></p>
+<p>##通配符Wildcard<br>|Wildcard|result|<br>|——–|——|<br>|?|一个任意字符|<br>|*|零个或任意多个任意字符|<br>|[set]|set里的其中一个字符|<br>|[!set]|set里的字符外的一个字符|</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sample</span><br><span class="line">ls he?.out</span><br><span class="line">ls hel.*</span><br><span class="line">ls h[a-e][al].out</span><br><span class="line">ls h[!f-z]l.out</span><br></pre></td></tr></table></figure>
+<p>##find 查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">find //输出当前目录下的的所有文件</span><br><span class="line">find . //同上</span><br><span class="line">find . -name a //当前目录下的名为a的文件/文件夹</span><br><span class="line">find . -name &quot;a?c&quot; //模糊查找用引号</span><br><span class="line">find . -type d -name tmp //查找名为tmp的文件夹</span><br><span class="line">find . -type f -name tmp //查找名为tmp的文件</span><br><span class="line">find -name &quot;*.swp&quot; -exec rm &#123;&#125; &apos;;&apos; //查找名为*.swp的文件，将其地址放到&#123;&#125;内，对每个结果执行-exec 后面的指令</span><br><span class="line">find -name &quot;*.swp&quot; -exec rm &#123;&#125; \; //末尾必须为&apos;;&apos;（包含引号）或\;(包含分号)</span><br><span class="line">find -name &quot;*.swp&quot; -ok rm &#123;&#125; \; //类似-exec,只是操作时会提示确认</span><br><span class="line">find / -ctime 3 //查找/下3天(0表示今天)修改过权限的文件，对应的有-atime最后访问 -mtime最后修改</span><br><span class="line">find -mmin -3 //查找当前目录下3分钟内修改过的文件，对应的有-amin和-cmin，-3表示3以内，+3表示3以上</span><br><span class="line">find -size 0 //查找大小为0块的文件(512字节)</span><br><span class="line">find -size +2M //大于2M的文件，bytes (c), kilobytes (k), megabytes (M), gigabytes (G), etc</span><br></pre></td></tr></table></figure></p>
+<p>#working with files</p>
+<p>##viewing files<br>|command|usage|<br>|——-|—–|<br>|cat|Used for viewing files that are not very long; it does not provide any scroll-back.|<br>|tac|Used to look at a file backwards, starting with the last line.|<br>|less|Used to view larger files because it is a paging program; it pauses at each screenful of text, provides scroll-back capabilities, and lets you search and navigate within the file. Note: Use / to search for a pattern in the forward direction and ? for a pattern in the backward direction.|<br>|tail|Used to print the last 10 lines of a file by default. You can change the number of lines by doing -n 15 or just -15 if you wanted to look at the last 15 lines instead of the default.|<br>|head|The opposite of tail; by default it prints the first 10 lines of a file.|</p>
+<p>##touch 修改访问、修改时间或者新建空文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch a.txt //新建名为a.txt的空文件</span><br><span class="line">touch -t 03201600 a.txt //修改a.txt的修改时间为3月20日16点</span><br></pre></td></tr></table></figure></p>
+<p>##删除文件<br>|command|usage|<br>|——-|—–|<br>|mv|移动或重命名文件或文件夹|<br>|rm|删除文件|<br>|rm -f|强制删除文件|<br>|rm -i|删除并提示确认|<br>|rm -r|删除文件夹以及文件夹下的所有文件|<br>|rmdir|删除空的文件夹|</p>
+<p>#IO<br>|name|descriptor|redirect|<br>|—-|———-|——–|<br>|stdin|0|&lt;|<br>|stdout|1|&gt;|<br>|stderr|2|2&gt;|</p>
+<p>同时输出stdout和stderr</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ do_something &gt; all-output-file 2&gt;&amp;1</span><br><span class="line">or</span><br><span class="line">$ do_something &gt;&amp; all-output-file</span><br></pre></td></tr></table></figure>
+<p>#参考文档</p>
+<p>##man<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">man bla //显示跟bla有关的详细信息</span><br><span class="line">man -f bla //显示bla的概要，与whatis一样</span><br><span class="line">man -k bla //显示跟bla有关的指令的概要，与apropos一样</span><br><span class="line">//man pages分成 1 - 9个章节，章节后面可带字母</span><br><span class="line">man 3 printf //显示在第3章的printf</span><br><span class="line">man -a printf //显示所有章节的printf，一章一章的展示</span><br></pre></td></tr></table></figure></p>
+<p>##info GUN Info System<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">info blabla //显示blabla的信息</span><br></pre></td></tr></table></figure></p>
+<p>##help<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">help // 显示当前shell内置的指令的简要使用方法</span><br><span class="line">bla -h //显示bla指令的简要帮助页，某些指令可能没有</span><br><span class="line">bla --help // 同上</span><br><span class="line">help的速度比man、info要快</span><br></pre></td></tr></table></figure></p>
+<p>#File Operations</p>
+<p>##FileSystems</p>
+<p>###Mount Points<br>设备需要挂载到某个文件夹后才能使用，如果文件夹不为空，则挂载后不能访问原有文件，得解除挂载后才能访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda5 /home //将dev/sda5挂载到/home文件夹</span><br><span class="line">mount //显示当前挂载的文件系统</span><br><span class="line">df -Th //同上，同时显示使用情况</span><br><span class="line">/etc/fstab //修改该文件，可开机自动挂载</span><br></pre></td></tr></table></figure></p>
+<p>###The Network Filesystem</p>
+<p>####Server<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service nfs start //start nfs service</span><br><span class="line">/etc/exports //contains the directories and permissions that a host is willing to share with other systems over NFS. </span><br><span class="line">exportfs -av //update change</span><br><span class="line">sudo service nfs restart</span><br></pre></td></tr></table></figure></p>
+<p>####Client<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/fstab //to modified to accomplish nfs</span><br><span class="line">servername:/projects /mnt/nfs/projects nfs defaults 0 0 //sample</span><br><span class="line">mount servername:/projects /mnt/nfs/projects //one-time mount,without reboot</span><br></pre></td></tr></table></figure></p>
+<p>##FileSystem Architecture<br>|Directory|Usage|<br>|———|—–|<br>|/| root directory|<br>|/home|Each user has a home directory, usually placed under /home|<br>|/root|root user’s home directory|<br>|/bin|contains executable binaries, essential commands used in single-user mode, and essential commands required by all system users|<br>|/sbin|essential binaries related to system administration|<br>|/usr/bin|Commands that are not essential for the system in single-user mode|<br>|/usr/sbin|for less essential system administration programs|<br>|/dev|contains device nodes,Linux creating them dynamically when devices are found except for network devices|<br>|/var|contains files that are expected to change in size and content as the system is running such as the System log files: /var/log Packages and database files: /var/lib Print queues: /var/spool Temp files: /var/tmp|<br>|/etc|home for system configuration files|<br>|/boot|contains the few essential files needed to boot the system|<br>|/lib|contains libraries (common code shared by applications and needed for them to run) for the essential programs in /bin and /sbin|<br>|/media| typically located where removable media, such as CDs, DVDs and USB drives are mounted|<br>|/opt| Optional application software packages.|<br>|/sys|Virtual pseudo-filesystem giving information about the system and the hardware. Can be used to alter system parameters and for debugging purposes.|<br>|/srv| Site-specific data served up by the system. Seldom used.|<br>|/tmp| Temporary files; on some distributions erased across a reboot and/or may actually be a ramdisk in memory. |<br>|/usr| Multi-user applications, utilities and data. |<br>|/usr/|include Header files used to compile applications. |<br>|/usr/lib| Libraries for programs in /usr/bin and /usr/sbin.|<br>|/usr/lib64| 64-bit libraries for 64-bit programs in /usr/bin and /usr/sbin.|<br>|/usr/sbin| Non-essential system binaries, such as system daemons. |<br>|/usr/share| Shared data used by applications, generally architecture-independent.|<br>|/usr/src| Source code, usually for the Linux kernel. |<br>|/usr/X11R6| X Window configuration files; generally obsolete.|<br>|/usr/local| Data and programs specific to the local machine. Subdirectories include bin, sbin, lib, share, include, etc. |<br>|/usr/bin| This is the primary directory of executable commands on the system.|  </p>
+<p>##Comparing Files and File Types</p>
+<p>###diff &amp; patch<br>|diff Option| Usage|<br>|——|——|<br>|-c|Provides a listing of differences that include 3 lines of context before and after the lines differing in content |<br>|-r|Used to recursively compare subdirectories as well as the current directory |<br>|-i |Ignore the case of letters |<br>|-w |Ignore differences in spaces and tabs (white space) |</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">diff a.txt b.txt</span><br><span class="line">diff3 MY-FILE COMMON-FILE YOUR-FILE // 3 files</span><br><span class="line">diff -Nur originalfile newfile &gt; patchfile</span><br><span class="line">diff -au filea fileb &gt; patchfile</span><br><span class="line">patch -p1 &lt; patchfile</span><br><span class="line">patch originalfile patchfile</span><br></pre></td></tr></table></figure>
+<p>###file 查看文件类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file hello.c</span><br><span class="line">file a</span><br><span class="line">file hello.o</span><br></pre></td></tr></table></figure></p>
+<p>##Backing Up and Compressing Data</p>
+<p>###rsync<br>copies only the parts of files that have actually changed, it can be very fast than cp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rsync sourcefile destinationfile</span><br><span class="line">rsync -r sourcedir destinationdir</span><br></pre></td></tr></table></figure></p>
+<p>###Compressing Data<br>|Command |Usage|<br>|——–|—–|<br>|gzip |The most frequently used Linux compression utility |<br>|bzip2 |Produces files significantly smaller than those produced by gzip|<br>|xz |The most space efficient compression utility used in Linux |<br>|zip| Is often required to examine and decompress archives from other operating systems |</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gzip *</td>
+<td>Compresses all files in the current directory; each file is compressed and renamed with a .gz extension.</td>
+</tr>
+<tr>
+<td>gzip -r</td>
+<td>projectX Compresses all files in the projectX directory along with all files in all of the directories under projectX.</td>
+</tr>
+<tr>
+<td>gunzip</td>
+<td>foo De-compresses foo found in the file foo.gz. Under the hood, gunzip command is actually the same as gzip –d.</td>
+</tr>
+<tr>
+<td>bzip2 *</td>
+<td>Compress all of the files in the current directory and replaces each file with a file renamed with a .bz2 extension.</td>
+</tr>
+<tr>
+<td>bunzip2 *.bz2</td>
+<td>Decompress all of the files with an extension of .bz2 in the current directory. Under the hood, bunzip2 is the same as calling bzip2 -d.</td>
+</tr>
+<tr>
+<td>xz *</td>
+<td>Compress all of the files in the current directory and replace each file with one with a .xz extension.</td>
+</tr>
+<tr>
+<td>xz foo</td>
+<td>Compress the file foo into foo.xz using the default compression level (-6), and remove foo if compression succeeds.</td>
+</tr>
+<tr>
+<td>xz -dk bar.xz</td>
+<td>Decompress bar.xz into  bar and don’t remove bar.xz even if decompression is successful.</td>
+</tr>
+<tr>
+<td>xz -dcf a.txt b.txt.xz &gt; abcd.txt</td>
+<td>Decompress a mix of compressed and uncompressed files to standard output, using a single command.</td>
+</tr>
+<tr>
+<td>xz -d *.xz</td>
+<td>Decompress the files compressed using xz.</td>
+</tr>
+<tr>
+<td>zip backup *</td>
+<td>Compresses all files in the current directory and places them in the file backup.zip.</td>
+</tr>
+<tr>
+<td>zip -r backup.zip ~</td>
+<td>Archives your login directory (~) and all files and directories under it in the file backup.zip.</td>
+</tr>
+<tr>
+<td>unzip backup.zip</td>
+<td>Extracts all files in the file backup.zip and places them in the current directory.</td>
+</tr>
+</tbody>
+</table>
+<p>###tar 打包<br>|Command |Usage|<br>|——–|—–|<br>|tar cf a.tar . |当前文件夹下的文件打包|<br>|tar cf b.tar ../tmp | 当前文件夹（名为tmp）下文件打包，且仍在tmp下|<br>|tar tvf a.tar |查看a.tar的内容|<br>|tar xvf mydir.tar |Extract all the files in mydir.tar into the mydir directory|<br>|tar zcvf mydir.tar.gz mydir |Create the archive and compress with gzip |<br>|tar jcvf mydir.tar.bz2 mydir |Create the archive and compress with bz2|<br>|tar Jcvf mydir.tar.xz mydir |Create the archive and compress with xz |<br>|tar xvf mydir.tar.gz |Extract all the files in mydir.tar.gz into the mydir directory. Note you do not have to tell tar it is in gzip format. |</p>
+<p>###dd Disk-to-Disk Copying<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/sda of=sda.mbr bs=512 count=1 //将sda的前512字节拷贝到当前目录，名为sda.mbr</span><br><span class="line">dd if=/dev/sda of=/dev/sdb //将sda拷贝到sdb，会清空sdb原有文件！</span><br><span class="line">dd if=filea of=fileb conv=ucase //将filea拷贝到fileb,同时将小写转为大写</span><br></pre></td></tr></table></figure></p>
+<p>#USER ENVIRONMENT</p>
+<p>##识别用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">who //显示当前登陆用户</span><br><span class="line">whoami //显示当前用户</span><br></pre></td></tr></table></figure></p>
+<p>##添加用户<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo useradd candy //添加用户candy</span><br><span class="line">//设置其主目录为/home/candy，基础文件拷贝自/etc/skel，在/etc/passwd添加一行描述</span><br><span class="line">//设置默认shell为/bin/bash</span><br><span class="line">sudo userdel candy //删除用户candy</span><br><span class="line">//删除用户为上面的反操作，但是不会删除其主目录，添加-r会删除主目录</span><br></pre></td></tr></table></figure></p>
+<p>##修改用户密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd username //passwd属于SUID(Set owner User ID upon execution)命令，即用户修改自己密码时该命令不需要root权限</span><br></pre></td></tr></table></figure></p>
+<p>##添加组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd lo //添加组，名为lo</span><br><span class="line">sudo groupdel lo //删除</span><br><span class="line">groups candy //查看candy的分组</span><br><span class="line">sudo usermod -G lo candy //添加candy至组lo</span><br><span class="line">//不能将candy直接从lo组移除，需要用上面的语句从新设置candy的分组</span><br></pre></td></tr></table></figure></p>
+<p>##配置文件<br>~/.bashrc //新打开的shell会从此读取配置信息，如环境变量，别名等</p>
+<p>##环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">set //显示变量，很多</span><br><span class="line">env </span><br><span class="line">export</span><br><span class="line">echo $SHELL //SHELL是一个变量，用$可以读取变量内容，用echo将其显示</span><br><span class="line">export VARIABLE=value //设置VARIABLE的值，并声明为环境变量</span><br><span class="line">VARIABLE=value; export VARIABLE //同上</span><br><span class="line">//注意&apos;=&apos;两边不能有空格</span><br><span class="line">新设置的变量在bash关闭后自动丢弃，要设置永久变量</span><br><span class="line">需要在~/.bashrc后面添加一行该变量的声明语句</span><br><span class="line">source ~/.bashrc //立即使用刚刚设置的变量，不用新开bash</span><br><span class="line">. ~/.bashrc //同上</span><br></pre></td></tr></table></figure></p>
+<p>###主目录 $HOME</p>
+<p>###路径 $PATH<br>PATH中包含一些路径，路径间用:分开，中间含有一个空的路径（或.）表示当前路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$HOME/bin:$PATH //添加主目录的bin到PATH前面</span><br></pre></td></tr></table></figure></p>
+<p>###提示语句 PS1<br>PS1是命令行起始地那段提示语，可以修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">\u - User name </span><br><span class="line">\h - Host name </span><br><span class="line">\w - Current working directory </span><br><span class="line">\! - History number of this command </span><br><span class="line">\d - Date</span><br><span class="line">PS1=&apos;\u \w \d &apos; //显示“用户名 当前目录 日期 ”</span><br></pre></td></tr></table></figure></p>
+<p>##命令历史<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">键盘向上箭头 //上一条语句</span><br><span class="line">向下箭头 //下一条语句</span><br><span class="line">history //显示命令历史，存在~/.bash_history下</span><br><span class="line">变量：</span><br><span class="line">HISTFILE //历史文件的存储地址</span><br><span class="line">HISTFILESIZE //最大历史文件大小（行数） </span><br><span class="line">HISTSIZE //最大当前执行期历史大小（行数）</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!!</td>
+<td>执行上条语句</td>
+</tr>
+<tr>
+<td>CTRL-R</td>
+<td>查找执行过的语句</td>
+</tr>
+<tr>
+<td>!n</td>
+<td>执行第n条指令（n对应history的行数）</td>
+</tr>
+<tr>
+<td>!$</td>
+<td>上条指令的最后一个参数</td>
+</tr>
+<tr>
+<td>!string</td>
+<td>上一条起始为string的指令</td>
+</tr>
+<tr>
+<td>CTRL-L</td>
+<td>清空屏幕</td>
+</tr>
+<tr>
+<td>CTRL-Z</td>
+<td>将当前进程放到后台挂起</td>
+</tr>
+<tr>
+<td>CTRL-C</td>
+<td>强制结束当前进程</td>
+</tr>
+<tr>
+<td>CTRL-A</td>
+<td>移到行首</td>
+</tr>
+<tr>
+<td>CTRL-W</td>
+<td>删除光标前的所有文字</td>
+</tr>
+<tr>
+<td>CTRL-U</td>
+<td>删除行首到光标间的文字</td>
+</tr>
+<tr>
+<td>CTRL-E</td>
+<td>移到行尾</td>
+</tr>
+<tr>
+<td>TAB</td>
+<td>自动补完命令，目录等</td>
+</tr>
+</tbody>
+</table>
+<p>##命令别名<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias xx=&apos;ls -l&apos; //为ls -l取别名xx，输入xx等于输入ls -l</span><br><span class="line">//别名只是暂时的，关闭窗口自动消失</span><br><span class="line">//取永久别名可以在~/.bashrc声明别名</span><br></pre></td></tr></table></figure></p>
+<p>##文件权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown root file1  //修改file1的owner为root</span><br><span class="line">sudo chgrp bin file1 //修改file1的group为bin</span><br></pre></td></tr></table></figure></p>
+<p>权限分为 r 可读、w 可写、x 可执行,同时分别对应 user group other<br>如-rw-rw-r– //-表示不可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rwx:rwx:rwx</span><br><span class="line"> u:  g:  o  //可用u、g、o表示三种类型</span><br><span class="line"> chmod uo+x,g-w testf //修改testf的权限，用户以及其他用户添加可执行，组减去可写</span><br></pre></td></tr></table></figure></p>
+<p>用数字表示对应的权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4 可读</span><br><span class="line">2 可写</span><br><span class="line">1 可执行</span><br></pre></td></tr></table></figure></p>
+<p>因此5对应4+1即可读可执行，7对应rwx等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 700 testf //修改testf为用户可读可写可执行，组以及其他用户都不行</span><br><span class="line">//注意数字仍然分3位对应3中类型</span><br></pre></td></tr></table></figure></p>
+<p>#su 切换用户，不提倡使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su candy //切换到用户candy</span><br><span class="line">su //切换到root</span><br></pre></td></tr></table></figure></p>
+<p>#sudo 临时使用root权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ubuntu安装时自动设置</span><br><span class="line">手动设置：</span><br><span class="line">su //接着输入root密码</span><br><span class="line">echo &quot;username ALL=(ALL) ALL&quot; &gt; /etc/sudoers.d/username //设置配置文件</span><br><span class="line">chmod 440 /etc/sudoers.d/username //修改配置文件的权限</span><br><span class="line">需要root的权限的操作只需在操作前添加sudo 即可</span><br></pre></td></tr></table></figure></p>
+<p>#关机，重启</p>
+<p>##shutdown 关机，重启 (root)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shutdown -h now //立即关机</span><br><span class="line">shutdown -r now //立即重启</span><br><span class="line">shutdown -h 10:00 &quot;shutting down for a break.&quot; //10:00关机，同时给其他用户发送通知</span><br></pre></td></tr></table></figure></p>
+<p>##halt 关机(root)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">halt</span><br></pre></td></tr></table></figure></p>
+<p>##poweroff 关机(root)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poweroff</span><br></pre></td></tr></table></figure></p>
+<p>##init 0 关机(root)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init 0</span><br></pre></td></tr></table></figure></p>
+<p>##关闭图形界面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service gdm stop // 关闭图形界面，Debian-based systems</span><br><span class="line">sudo service lightdm stop //同上</span><br><span class="line">sudo telinit 3 // RPM-based systems</span><br></pre></td></tr></table></figure></p>
+<p>#安装应用程序<br>|package Manager|Low Level|High Level|<br>|—————|———|———-|<br>|Debian|dpkg|apt-get|<br>|SUSE|rpm|zypper|<br>|Fedora|rpm|yum|<br>Debian<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-cache search lynx //查找名为lynx的程序</span><br><span class="line">sudo apt-get install lynx //安装</span><br><span class="line">sudo apt-get policy lynx //查找信息</span><br><span class="line">sudo apt-get remove lynx //删除</span><br><span class="line">sudo dpkg -l //查找所有已安装程序</span><br><span class="line">sudo apt-get upgrade //升级程序</span><br></pre></td></tr></table></figure></p>
+<p>yum/zypper<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo yum/zypper search lynx //yum for Fedora, zypper for SUSE</span><br><span class="line">sudo yum/zypper install lynx</span><br><span class="line">sudo yum/zypper info lynx</span><br><span class="line">sudo yum/zypper remove lynx</span><br><span class="line">sudo yum/zypper list install</span><br><span class="line">sudo rpm -qa //同上</span><br><span class="line">sudo yum/zypper update</span><br></pre></td></tr></table></figure></p>
+<p>#程序定位</p>
+<p>##which<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">which diff //显示diff的地址</span><br></pre></td></tr></table></figure></p>
+<p>##whereis<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis diff //显示diff的地址（查找范围更广）</span><br></pre></td></tr></table></figure></p>
+<p>#文本操作</p>
+<p>##echo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo hello &gt; hello //把hello写入hello文件（替换掉原有内容）</span><br><span class="line">echo helloo &gt;&gt; hello //在hello文件后面添加helloo</span><br><span class="line">echo -e string\nstring // -e可以识别转义字符</span><br></pre></td></tr></table></figure></p>
+<p>##cat<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat hello //查看hello</span><br><span class="line">cat file1 file2 file3 // 可以同时查看多个文件（连接多个文件）</span><br><span class="line">cat &gt; hello //写入新内容到hello</span><br><span class="line">blah blah </span><br><span class="line">blah</span><br><span class="line">[CTRL-D] //写入blah blah\nblah， 按ctrl-d会保存到文件</span><br><span class="line">cat &lt;&lt; EOF &gt; hello //连续写入内容到hello，直到输入EOF（EOF不会被写入）</span><br><span class="line">&gt; a</span><br><span class="line">&gt; ab</span><br><span class="line">&gt; EOF</span><br><span class="line"></span><br><span class="line">cat &lt;&lt; a &gt; hello //同上，输入a截止</span><br><span class="line">&gt; b</span><br><span class="line">&gt; bc</span><br><span class="line">&gt; a</span><br></pre></td></tr></table></figure></p>
+<p>##nano 简单的编辑器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano hello //编辑hello</span><br></pre></td></tr></table></figure></p>
+<p>##gedit 图形化编辑器，类似notepad<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit hello // 编辑hello</span><br></pre></td></tr></table></figure></p>
+<p>##vim (vi升级版，现vi已被vim取代)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim hello //编辑hello</span><br><span class="line">vimtutor //vim使用指导，有中文版，建议跟着练习，可能花费1小时左右</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>Command / key</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vi myfile</td>
+<td>Start the vi editor and edit the myfile file </td>
+</tr>
+<tr>
+<td>vi -r myfile</td>
+<td>Start vi and edit myfile in recovery mode from a system crash </td>
+</tr>
+<tr>
+<td>:r file2</td>
+<td>Read in file2 and insert at current position </td>
+</tr>
+<tr>
+<td>:w</td>
+<td>Write to the file </td>
+</tr>
+<tr>
+<td>:w myfile</td>
+<td>Write out the file to myfile </td>
+</tr>
+<tr>
+<td>:w! file2</td>
+<td>Overwrite file2 </td>
+</tr>
+<tr>
+<td>:x or :wq</td>
+<td>Exit vi and write out modified file </td>
+</tr>
+<tr>
+<td>:q</td>
+<td>Quit vi </td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>Quit vi even though modifications have not been saved </td>
+</tr>
+<tr>
+<td>arrow keys</td>
+<td>To move up, down, left and right </td>
+</tr>
+<tr>
+<td>j or <ret></ret></td>
+<td>To move one line down </td>
+</tr>
+<tr>
+<td>k</td>
+<td>To move one line up </td>
+</tr>
+<tr>
+<td>h or Backspace</td>
+<td>To move one character left </td>
+</tr>
+<tr>
+<td>l or Space</td>
+<td>To move one character right </td>
+</tr>
+<tr>
+<td>0</td>
+<td>To move to beginning of line </td>
+</tr>
+<tr>
+<td>$</td>
+<td>To move to end of line </td>
+</tr>
+<tr>
+<td>w</td>
+<td>To move to beginning of next word </td>
+</tr>
+<tr>
+<td>e</td>
+<td>To move to the end of next word</td>
+</tr>
+<tr>
+<td>:0 or 1G</td>
+<td>To move to beginning of file </td>
+</tr>
+<tr>
+<td>:n or nG</td>
+<td>To move to line n </td>
+</tr>
+<tr>
+<td>:$ or G</td>
+<td>To move to last line in file </td>
+</tr>
+<tr>
+<td>CTRL-F or Page Down</td>
+<td>To move forward one page </td>
+</tr>
+<tr>
+<td>CTRL-B or Page Up</td>
+<td>To move backward one page </td>
+</tr>
+<tr>
+<td>^l</td>
+<td>To refresh and center screen </td>
+</tr>
+<tr>
+<td>/pattern</td>
+<td>Search forward for pattern </td>
+</tr>
+<tr>
+<td>?pattern</td>
+<td>Search backward for pattern </td>
+</tr>
+<tr>
+<td>n</td>
+<td>Move to next occurrence of search pattern </td>
+</tr>
+<tr>
+<td>N</td>
+<td>Move to previous occurrence of search pattern </td>
+</tr>
+<tr>
+<td>a</td>
+<td>Append text after cursor; stop upon Escape key </td>
+</tr>
+<tr>
+<td>A</td>
+<td>Append text at end of current line; stop upon Escape key </td>
+</tr>
+<tr>
+<td>i</td>
+<td>Insert text before cursor; stop upon Escape key </td>
+</tr>
+<tr>
+<td>I</td>
+<td>Insert text at beginning of current line; stop upon Escape key </td>
+</tr>
+<tr>
+<td>o</td>
+<td>Start a new line below current line, insert text there; stop upon Escape key </td>
+</tr>
+<tr>
+<td>O</td>
+<td>Start a new line above current line, insert text there; stop upon Escape key </td>
+</tr>
+<tr>
+<td>r</td>
+<td>Replace character at current position </td>
+</tr>
+<tr>
+<td>R</td>
+<td>Replace text starting with current position; stop upon Escape key </td>
+</tr>
+<tr>
+<td>x</td>
+<td>Delete character at current position </td>
+</tr>
+<tr>
+<td>Nx</td>
+<td>Delete N characters, starting at current position </td>
+</tr>
+<tr>
+<td>dw</td>
+<td>Delete the word at the current position </td>
+</tr>
+<tr>
+<td>D</td>
+<td>Delete the rest of the current line </td>
+</tr>
+<tr>
+<td>dd</td>
+<td>Delete the current line </td>
+</tr>
+<tr>
+<td>Ndd or dNd</td>
+<td>Delete N lines </td>
+</tr>
+<tr>
+<td>u</td>
+<td>Undo the previous operation </td>
+</tr>
+<tr>
+<td>yy</td>
+<td>Yank (copy) the current line and put it in buffer </td>
+</tr>
+<tr>
+<td>Nyy or yNy</td>
+<td>Yank (copy) N lines and put it in buffer </td>
+</tr>
+<tr>
+<td>p</td>
+<td>Paste at the current position the yanked line or lines from the buffer. </td>
+</tr>
+</tbody>
+</table>
+<p>##ALL READ AND NO LAB MAKES JACK A BOY CAN’T USE VIM</p>
+<p>##sed 多文本操作<br>sed 默认将结果输出到屏幕</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sed -e command <filename></filename></td>
+<td>Specify editing commands at the command line, operate on file and put the output on standard out (e.g., the terminal) </td>
+</tr>
+<tr>
+<td>sed -f scriptfile <filename></filename></td>
+<td>Specify a scriptfile containing sed commands, operate on file and put output on standard out. </td>
+</tr>
+<tr>
+<td>sed s/pattern/replace_string/ file</td>
+<td>替换掉第一行的第一个pattern为replace_string </td>
+</tr>
+<tr>
+<td>sed s/pattern/replace_string/g file</td>
+<td>替换掉整行的pattern </td>
+</tr>
+<tr>
+<td>sed 1,3s/pattern/replace_string/g file</td>
+<td>替换掉指定范围行 </td>
+</tr>
+<tr>
+<td>sed -i s/pattern/replace_string/g file</td>
+<td>保存到原文件，不提倡</td>
+</tr>
+<tr>
+<td>sed s/pattern/replace_string/g file1 &gt; file2</td>
+<td>保存到指定文件</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sed -e &apos;s/01/JAN/&apos; -e &apos;s/02/FEB/&apos; -e &apos;s/03/MAR/&apos; -e &apos;s/04/APR/&apos; -e &apos;s/05/MAY/&apos; \ </span><br><span class="line">-e &apos;s/06/JUN/&apos; -e &apos;s/07/JUL/&apos; -e &apos;s/08/AUG/&apos; -e &apos;s/09/SEP/&apos; -e &apos;s/10/OCT/&apos; \</span><br><span class="line">-e &apos;s/11/NOV/&apos; -e &apos;s/12/DEC/&apos; file //To convert 01/02/… to JAN/FEB/… from file</span><br><span class="line"></span><br><span class="line">sed s/is/are/ file //把file第一行第一个is换为are</span><br><span class="line">sed s/is/are/g file //把第一行所有is换位are</span><br><span class="line">sed s/is/are/g file1 file2 //多文件同时操作</span><br></pre></td></tr></table></figure>
+<p>##awk 提取内容</p>
+<ul>
+<li>It is a powerful utility and interpreted programming language.</li>
+<li>It is used to manipulate data files, retrieving, and processing text.</li>
+<li>It works well with fields (containing a single piece of data, essentially a column) and records (a collection of fields, essentially a line in a file).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>awk ‘command’ var=value file</td>
+<td>Specify a command directly at the command line </td>
+</tr>
+<tr>
+<td>awk -f scriptfile var=value file</td>
+<td>Specify a file that contains the script to be executed along with f </td>
+</tr>
+<tr>
+<td>awk ‘{ print $0 }’ /etc/passwd</td>
+<td>Print entire file of /etc/passwd </td>
+</tr>
+<tr>
+<td>awk -F: ‘{ print $1 }’ /etc/passwd</td>
+<td>Print first field (column) of every line, separated by a space </td>
+</tr>
+<tr>
+<td>awk -F: ‘{ print $1 $6 }’ /etc/passwd</td>
+<td>Print first and sixth field of every line </td>
+</tr>
+</tbody>
+</table>
+<p>#File Manipulation Utilities</p>
+<p>##sort 排序<br>sort默认安装ASCII字符排序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort file </span><br><span class="line">sort -r file // 逆序</span><br><span class="line">sort -u file // 排序，同时去除重复</span><br></pre></td></tr></table></figure></p>
+<p>##uniq 去重<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort file | uniq // same as sort -u file</span><br><span class="line">uniq file</span><br><span class="line">uniq -c file // 同时输出重复字数</span><br></pre></td></tr></table></figure></p>
+<p>##paste 黏贴<br>可将两文件并排合并<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">假如有文件name</span><br><span class="line">bob</span><br><span class="line">alice</span><br><span class="line">文件phone</span><br><span class="line">110</span><br><span class="line">120</span><br><span class="line">执行：</span><br><span class="line">paste name phone</span><br><span class="line">将得到</span><br><span class="line">bob    110</span><br><span class="line">alice    120</span><br><span class="line">paste -d &apos;:&apos; name phone //指定分隔符为&apos;:&apos;，默认为&apos;\t&apos;</span><br></pre></td></tr></table></figure></p>
+<p>##join 连接<br>相当于等值连接，必须要有一列值相同<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">承接上面</span><br><span class="line">paste name phone &gt; contact</span><br><span class="line">假设有文件addr</span><br><span class="line">bob somewhere</span><br><span class="line">alice anywhere</span><br><span class="line"></span><br><span class="line">join contact addr</span><br><span class="line">将得到：</span><br><span class="line">bob 110 somewhere</span><br><span class="line">alice 120 anywhere</span><br></pre></td></tr></table></figure></p>
+<p>##split 分割<br>默认将大文件分割为多个1000行的小文件，默认小文件为原文件名后加后缀<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wc -l american-english //查看有多少行</span><br><span class="line">split american-english dictionary // 将american-english 分为多个名为dictionary加后缀的小文件</span><br></pre></td></tr></table></figure></p>
+<p>#正则表达式</p>
+<table>
+<thead>
+<tr>
+<th>Search Patterns</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.(dot)</td>
+<td>Match any single character </td>
+</tr>
+<tr>
+<td>a</td>
+<td>z</td>
+<td>Match a or z </td>
+</tr>
+<tr>
+<td>$</td>
+<td>Match end of string </td>
+</tr>
+<tr>
+<td>*</td>
+<td>Match preceding item 0 or more times </td>
+</tr>
+</tbody>
+</table>
+<p>example</p>
+<p>the quick brown fox jumped over the lazy dog</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a..</td>
+<td>matches azy  </td>
+</tr>
+<tr>
+<td>b.</td>
+<td>j.</td>
+<td>matches both br and ju </td>
+</tr>
+<tr>
+<td>..$</td>
+<td>matches og </td>
+</tr>
+<tr>
+<td>l.*</td>
+<td>matches lazy dog </td>
+</tr>
+<tr>
+<td>l.*y</td>
+<td>matches lazy </td>
+</tr>
+<tr>
+<td>the.*</td>
+<td>matches the whole sentence </td>
+</tr>
+</tbody>
+</table>
+<p>#Security</p>
+<p>##last 每个账户上次（包含正在登陆的）登陆的时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">last</span><br></pre></td></tr></table></figure></p>
+<h2 id="root"><a href="#root" class="headerlink" title="root"></a>root</h2><p>root 账户拥有最高的权限，当以root用户登录时，shell提示符为 # (默认情况下)<br>root权限通常用于</p>
+<ul>
+<li>Creating, removing and managing user accounts.</li>
+<li>Managing software packages.</li>
+<li>Removing or modifying system files.</li>
+<li>Restarting system services.</li>
+</ul>
+<p>##su 与 sudo<br>su可切换至root账户，需要root的密码<br>sudo可临时使用root权限，需要用户自己的密码，仅限在/etc/sudoers or /etc/sudoers.d/ 下定义的用户<br>当使用sudo或者使用失败时，记录会保存在/var/log/secure (Debian) 或者 /var/log/messages or /var/log/secure<br>编辑sudoers文件可用visudo命令，基本结构为：<br>who where = (as_whom) what</p>
+<p>##password 密码<br>用户密码存放在/etc/shadow，访问该文件需要root权限<br>/etc/shadow不存放明文密码，该密码通常用SHA-512(Secure Hashing Algorithm 512 bits,  developed by the U.S. National Security Agency (NSA) )算法得到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -n test | sha512sum // 获得字符串test的sha512算法加密后的密文</span><br></pre></td></tr></table></figure></p>
+<p>###chage 用来规划用户密码，比如密码过期时间，多久要修改密码等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chage --list username //显示用户的密码规划</span><br></pre></td></tr></table></figure></p>
+<p>###PAM (Pluggable Authentication Modules) 用来增强passwd命令</p>
+<p>##boot loader<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub-md5-crypt  //用md5加密</span><br></pre></td></tr></table></figure></p>
+<p>修改grub2的配置时，不应手动修改/boot/grub/grub/cfg，而应修改/etc/grub.d下的文件然后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update-grub</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/ubuntu/">ubuntu</a><a href="/tags/command/">command</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/introduction/">introduction</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://kohit.github.io/2016/07/14/basic-commands-of-linux/" data-title="Basic commands of linux | kohit&#39;s blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/06/20/Getting-started-with-Hexo/"  title="Getting started with Hexo">
+ <strong>NEXT:</strong><br/> 
+ <span>Getting started with Hexo
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#root"><span class="toc-number">1.</span> <span class="toc-text">root</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/categories/introduction/" title="introduction">introduction<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+			<li><a href="/tags/command/" title="command">command<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <br>
+      &copy; 2016 Wind Vane<br>
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+       &amp; theme based on  <a href="https://github.com/A-limon/pacman" target="_blank">pacman</a>
+    </div>
+  </div>
+</footer></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  </body>
+</html>
