@@ -11,8 +11,7 @@
     
     <meta name="description" content="LinuxFoundationX: LFS101x.2 Introduction to Linux
 
-#Exploring the Filesystem
-##cd 切换目录12345678cd //切换到主目录cd ~ //同上cd - //回到上一次访问的目录cd .. //回到上一层目录cd /">
+Exploring the Filesystemcd 切换目录12345678cd //切换到主目录cd ~ //同上cd - //回到上一次访问的目录cd .. //回到上一层目录cd /blab">
     
     
     
@@ -76,7 +75,7 @@
     </p>
   <p class="article-time">
     <time datetime="2016-07-14T10:23:39.634Z" itemprop="datePublished">2016-07-14</time>
-    更新日期:<time datetime="2016-07-14T10:30:04.142Z" itemprop="dateModified">2016-07-14</time>
+    更新日期:<time datetime="2016-07-14T10:54:04.201Z" itemprop="dateModified">2016-07-14</time>
     
   </p>
 </header>
@@ -85,53 +84,298 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#root"><span class="toc-number">1.</span> <span class="toc-text">root</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Exploring-the-Filesystem"><span class="toc-number">1.</span> <span class="toc-text">Exploring the Filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#cd-切换目录"><span class="toc-number">1.1.</span> <span class="toc-text">cd 切换目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwd-显示当前目录"><span class="toc-number">1.2.</span> <span class="toc-text">pwd 显示当前目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ls-显示目录下的内容"><span class="toc-number">1.3.</span> <span class="toc-text">ls 显示目录下的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tree-按树的结构显示目录"><span class="toc-number">1.4.</span> <span class="toc-text">tree 按树的结构显示目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mkdir-新建目录"><span class="toc-number">1.5.</span> <span class="toc-text">mkdir 新建目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rm-r-删除文件夹"><span class="toc-number">1.6.</span> <span class="toc-text">rm -r 删除文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ln-链接Links"><span class="toc-number">1.7.</span> <span class="toc-text">ln 链接Links</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pushd-前往并将目录压栈"><span class="toc-number">1.8.</span> <span class="toc-text">pushd 前往并将目录压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#popd-弹出并前往栈顶目录"><span class="toc-number">1.9.</span> <span class="toc-text">popd 弹出并前往栈顶目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dirs-查看栈中的目录"><span class="toc-number">1.10.</span> <span class="toc-text">dirs 查看栈中的目录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Searching-for-Files"><span class="toc-number">2.</span> <span class="toc-text">Searching for Files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#locate-查找所有匹配的结果"><span class="toc-number">2.1.</span> <span class="toc-text">locate 查找所有匹配的结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通配符Wildcard"><span class="toc-number">2.2.</span> <span class="toc-text">通配符Wildcard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find-查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢"><span class="toc-number">2.3.</span> <span class="toc-text">find 查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#working-with-files"><span class="toc-number">3.</span> <span class="toc-text">working with files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#viewing-files"><span class="toc-number">3.1.</span> <span class="toc-text">viewing files</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#touch-修改访问、修改时间或者新建空文件"><span class="toc-number">3.2.</span> <span class="toc-text">touch 修改访问、修改时间或者新建空文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除文件"><span class="toc-number">3.3.</span> <span class="toc-text">删除文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IO"><span class="toc-number">4.</span> <span class="toc-text">IO</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文档"><span class="toc-number">5.</span> <span class="toc-text">参考文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#man"><span class="toc-number">5.1.</span> <span class="toc-text">man</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#info-GUN-Info-System"><span class="toc-number">5.2.</span> <span class="toc-text">info GUN Info System</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#help"><span class="toc-number">5.3.</span> <span class="toc-text">help</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-Operations"><span class="toc-number">6.</span> <span class="toc-text">File Operations</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FileSystems"><span class="toc-number">6.1.</span> <span class="toc-text">FileSystems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mount-Points"><span class="toc-number">6.1.1.</span> <span class="toc-text">Mount Points</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Network-Filesystem"><span class="toc-number">6.1.2.</span> <span class="toc-text">The Network Filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Server"><span class="toc-number">6.1.2.1.</span> <span class="toc-text">Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Client"><span class="toc-number">6.1.2.2.</span> <span class="toc-text">Client</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FileSystem-Architecture"><span class="toc-number">6.2.</span> <span class="toc-text">FileSystem Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparing-Files-and-File-Types"><span class="toc-number">6.3.</span> <span class="toc-text">Comparing Files and File Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#diff-amp-patch"><span class="toc-number">6.3.1.</span> <span class="toc-text">diff & patch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#file-查看文件类型"><span class="toc-number">6.3.2.</span> <span class="toc-text">file 查看文件类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backing-Up-and-Compressing-Data"><span class="toc-number">6.4.</span> <span class="toc-text">Backing Up and Compressing Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#root"><span class="toc-number">6.5.</span> <span class="toc-text">root</span></a></li></ol></li></ol>
 		</div>
 		
 		<blockquote>
 <p>LinuxFoundationX: LFS101x.2 Introduction to Linux</p>
 </blockquote>
-<p>#Exploring the Filesystem</p>
-<p>##cd 切换目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd //切换到主目录</span><br><span class="line">cd ~ //同上</span><br><span class="line">cd - //回到上一次访问的目录</span><br><span class="line">cd .. //回到上一层目录</span><br><span class="line">cd /blabla //绝对地址，从 / 开始</span><br><span class="line">cd blabla //相对地址，从当前目录开始</span><br><span class="line">cd ./blabla //同上</span><br><span class="line">cd .//blabla //同上，多个///可视作一个/</span><br></pre></td></tr></table></figure></p>
-<p>##pwd 显示当前目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure></p>
-<p>##ls 显示目录下的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls //显示当前目录下的内容</span><br><span class="line">ls -a //显示当前目录下的内容，包括隐藏文件</span><br><span class="line">ls -l //显示更详细的内容，包括日期，大小，权限等</span><br><span class="line">ls -i //显示inode</span><br><span class="line">l //显示目录下的内容（Ubuntu）</span><br></pre></td></tr></table></figure></p>
-<p>##tree 按树的结构显示目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree //当面目录按树结构展示</span><br><span class="line">tree -d //只展示目录</span><br></pre></td></tr></table></figure></p>
-<p>##mkdir 新建目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir blabla //在当前目录新建blabla文件夹</span><br><span class="line">mkdir ./blabla //同上</span><br><span class="line">mkdir bla/blabla //在当前目录下的bla文件夹内新建blabla文件夹</span><br></pre></td></tr></table></figure></p>
-<p>##rm -r 删除文件夹<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r blabla //删除当前目录下的blabla文件夹</span><br></pre></td></tr></table></figure></p>
-<p>##ln 链接Links<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ln file1 file2 //hard link，inode相同，相当于取别名，删除一个链接不会删除文件（如有有其他别名的话）</span><br><span class="line">ln -s file1 file2 //soft link，inode不同</span><br><span class="line">ln -s bla/blabla blabla // bla/blabla可以是文件夹</span><br><span class="line">ln -s bla // 空链接（dangling link）</span><br><span class="line">// 不同的编辑器可能对链接的文件的操作方式不同，可能在同一个文件修改，也可能新建一个文件</span><br></pre></td></tr></table></figure></p>
-<p>##pushd 前往并将目录压栈<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushd tmp //前往当前目录下的tmp文件夹（跟cd相同），同时将tmp文件夹压栈</span><br></pre></td></tr></table></figure></p>
-<p>##popd 弹出并前往栈顶目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">popd</span><br></pre></td></tr></table></figure></p>
-<p>##dirs 查看栈中的目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirs</span><br></pre></td></tr></table></figure></p>
-<p>#Searching for Files</p>
-<p>##locate 查找所有匹配的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate zip | grep bin //查找zip，结果当作输入给后面的grep指令，再进一步缩小范围</span><br></pre></td></tr></table></figure></p>
+<h1 id="Exploring-the-Filesystem"><a href="#Exploring-the-Filesystem" class="headerlink" title="Exploring the Filesystem"></a>Exploring the Filesystem</h1><h2 id="cd-切换目录"><a href="#cd-切换目录" class="headerlink" title="cd 切换目录"></a>cd 切换目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd //切换到主目录</span><br><span class="line">cd ~ //同上</span><br><span class="line">cd - //回到上一次访问的目录</span><br><span class="line">cd .. //回到上一层目录</span><br><span class="line">cd /blabla //绝对地址，从 / 开始</span><br><span class="line">cd blabla //相对地址，从当前目录开始</span><br><span class="line">cd ./blabla //同上</span><br><span class="line">cd .//blabla //同上，多个///可视作一个/</span><br></pre></td></tr></table></figure>
+<h2 id="pwd-显示当前目录"><a href="#pwd-显示当前目录" class="headerlink" title="pwd 显示当前目录"></a>pwd 显示当前目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+<h2 id="ls-显示目录下的内容"><a href="#ls-显示目录下的内容" class="headerlink" title="ls 显示目录下的内容"></a>ls 显示目录下的内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls //显示当前目录下的内容</span><br><span class="line">ls -a //显示当前目录下的内容，包括隐藏文件</span><br><span class="line">ls -l //显示更详细的内容，包括日期，大小，权限等</span><br><span class="line">ls -i //显示inode</span><br><span class="line">l //显示目录下的内容（Ubuntu）</span><br></pre></td></tr></table></figure>
+<h2 id="tree-按树的结构显示目录"><a href="#tree-按树的结构显示目录" class="headerlink" title="tree 按树的结构显示目录"></a>tree 按树的结构显示目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree //当面目录按树结构展示</span><br><span class="line">tree -d //只展示目录</span><br></pre></td></tr></table></figure>
+<h2 id="mkdir-新建目录"><a href="#mkdir-新建目录" class="headerlink" title="mkdir 新建目录"></a>mkdir 新建目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir blabla //在当前目录新建blabla文件夹</span><br><span class="line">mkdir ./blabla //同上</span><br><span class="line">mkdir bla/blabla //在当前目录下的bla文件夹内新建blabla文件夹</span><br></pre></td></tr></table></figure>
+<h2 id="rm-r-删除文件夹"><a href="#rm-r-删除文件夹" class="headerlink" title="rm -r 删除文件夹"></a>rm -r 删除文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r blabla //删除当前目录下的blabla文件夹</span><br></pre></td></tr></table></figure>
+<h2 id="ln-链接Links"><a href="#ln-链接Links" class="headerlink" title="ln 链接Links"></a>ln 链接Links</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ln file1 file2 //hard link，inode相同，相当于取别名，删除一个链接不会删除文件（如有有其他别名的话）</span><br><span class="line">ln -s file1 file2 //soft link，inode不同</span><br><span class="line">ln -s bla/blabla blabla // bla/blabla可以是文件夹</span><br><span class="line">ln -s bla // 空链接（dangling link）</span><br><span class="line">// 不同的编辑器可能对链接的文件的操作方式不同，可能在同一个文件修改，也可能新建一个文件</span><br></pre></td></tr></table></figure>
+<h2 id="pushd-前往并将目录压栈"><a href="#pushd-前往并将目录压栈" class="headerlink" title="pushd 前往并将目录压栈"></a>pushd 前往并将目录压栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushd tmp //前往当前目录下的tmp文件夹（跟cd相同），同时将tmp文件夹压栈</span><br></pre></td></tr></table></figure>
+<h2 id="popd-弹出并前往栈顶目录"><a href="#popd-弹出并前往栈顶目录" class="headerlink" title="popd 弹出并前往栈顶目录"></a>popd 弹出并前往栈顶目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">popd</span><br></pre></td></tr></table></figure>
+<h2 id="dirs-查看栈中的目录"><a href="#dirs-查看栈中的目录" class="headerlink" title="dirs 查看栈中的目录"></a>dirs 查看栈中的目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirs</span><br></pre></td></tr></table></figure>
+<h1 id="Searching-for-Files"><a href="#Searching-for-Files" class="headerlink" title="Searching for Files"></a>Searching for Files</h1><h2 id="locate-查找所有匹配的结果"><a href="#locate-查找所有匹配的结果" class="headerlink" title="locate 查找所有匹配的结果"></a>locate 查找所有匹配的结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate zip | grep bin //查找zip，结果当作输入给后面的grep指令，再进一步缩小范围</span><br></pre></td></tr></table></figure>
 <p>locate是通过文件的数据库查找的，数据库通常1天更新一次，可以手动更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">updatedb //更新数据库</span><br></pre></td></tr></table></figure></p>
-<p>##通配符Wildcard<br>|Wildcard|result|<br>|——–|——|<br>|?|一个任意字符|<br>|*|零个或任意多个任意字符|<br>|[set]|set里的其中一个字符|<br>|[!set]|set里的字符外的一个字符|</p>
+<h2 id="通配符Wildcard"><a href="#通配符Wildcard" class="headerlink" title="通配符Wildcard"></a>通配符Wildcard</h2><table>
+<thead>
+<tr>
+<th>Wildcard</th>
+<th>result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>一个任意字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>零个或任意多个任意字符</td>
+</tr>
+<tr>
+<td>[set]</td>
+<td>set里的其中一个字符</td>
+</tr>
+<tr>
+<td>[!set]</td>
+<td>set里的字符外的一个字符</td>
+</tr>
+</tbody>
+</table>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sample</span><br><span class="line">ls he?.out</span><br><span class="line">ls hel.*</span><br><span class="line">ls h[a-e][al].out</span><br><span class="line">ls h[!f-z]l.out</span><br></pre></td></tr></table></figure>
-<p>##find 查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">find //输出当前目录下的的所有文件</span><br><span class="line">find . //同上</span><br><span class="line">find . -name a //当前目录下的名为a的文件/文件夹</span><br><span class="line">find . -name &quot;a?c&quot; //模糊查找用引号</span><br><span class="line">find . -type d -name tmp //查找名为tmp的文件夹</span><br><span class="line">find . -type f -name tmp //查找名为tmp的文件</span><br><span class="line">find -name &quot;*.swp&quot; -exec rm &#123;&#125; &apos;;&apos; //查找名为*.swp的文件，将其地址放到&#123;&#125;内，对每个结果执行-exec 后面的指令</span><br><span class="line">find -name &quot;*.swp&quot; -exec rm &#123;&#125; \; //末尾必须为&apos;;&apos;（包含引号）或\;(包含分号)</span><br><span class="line">find -name &quot;*.swp&quot; -ok rm &#123;&#125; \; //类似-exec,只是操作时会提示确认</span><br><span class="line">find / -ctime 3 //查找/下3天(0表示今天)修改过权限的文件，对应的有-atime最后访问 -mtime最后修改</span><br><span class="line">find -mmin -3 //查找当前目录下3分钟内修改过的文件，对应的有-amin和-cmin，-3表示3以内，+3表示3以上</span><br><span class="line">find -size 0 //查找大小为0块的文件(512字节)</span><br><span class="line">find -size +2M //大于2M的文件，bytes (c), kilobytes (k), megabytes (M), gigabytes (G), etc</span><br></pre></td></tr></table></figure></p>
-<p>#working with files</p>
-<p>##viewing files<br>|command|usage|<br>|——-|—–|<br>|cat|Used for viewing files that are not very long; it does not provide any scroll-back.|<br>|tac|Used to look at a file backwards, starting with the last line.|<br>|less|Used to view larger files because it is a paging program; it pauses at each screenful of text, provides scroll-back capabilities, and lets you search and navigate within the file. Note: Use / to search for a pattern in the forward direction and ? for a pattern in the backward direction.|<br>|tail|Used to print the last 10 lines of a file by default. You can change the number of lines by doing -n 15 or just -15 if you wanted to look at the last 15 lines instead of the default.|<br>|head|The opposite of tail; by default it prints the first 10 lines of a file.|</p>
-<p>##touch 修改访问、修改时间或者新建空文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch a.txt //新建名为a.txt的空文件</span><br><span class="line">touch -t 03201600 a.txt //修改a.txt的修改时间为3月20日16点</span><br></pre></td></tr></table></figure></p>
-<p>##删除文件<br>|command|usage|<br>|——-|—–|<br>|mv|移动或重命名文件或文件夹|<br>|rm|删除文件|<br>|rm -f|强制删除文件|<br>|rm -i|删除并提示确认|<br>|rm -r|删除文件夹以及文件夹下的所有文件|<br>|rmdir|删除空的文件夹|</p>
-<p>#IO<br>|name|descriptor|redirect|<br>|—-|———-|——–|<br>|stdin|0|&lt;|<br>|stdout|1|&gt;|<br>|stderr|2|2&gt;|</p>
+<h2 id="find-查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢"><a href="#find-查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢" class="headerlink" title="find 查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢"></a>find 查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">find //输出当前目录下的的所有文件</span><br><span class="line">find . //同上</span><br><span class="line">find . -name a //当前目录下的名为a的文件/文件夹</span><br><span class="line">find . -name &quot;a?c&quot; //模糊查找用引号</span><br><span class="line">find . -type d -name tmp //查找名为tmp的文件夹</span><br><span class="line">find . -type f -name tmp //查找名为tmp的文件</span><br><span class="line">find -name &quot;*.swp&quot; -exec rm &#123;&#125; &apos;;&apos; //查找名为*.swp的文件，将其地址放到&#123;&#125;内，对每个结果执行-exec 后面的指令</span><br><span class="line">find -name &quot;*.swp&quot; -exec rm &#123;&#125; \; //末尾必须为&apos;;&apos;（包含引号）或\;(包含分号)</span><br><span class="line">find -name &quot;*.swp&quot; -ok rm &#123;&#125; \; //类似-exec,只是操作时会提示确认</span><br><span class="line">find / -ctime 3 //查找/下3天(0表示今天)修改过权限的文件，对应的有-atime最后访问 -mtime最后修改</span><br><span class="line">find -mmin -3 //查找当前目录下3分钟内修改过的文件，对应的有-amin和-cmin，-3表示3以内，+3表示3以上</span><br><span class="line">find -size 0 //查找大小为0块的文件(512字节)</span><br><span class="line">find -size +2M //大于2M的文件，bytes (c), kilobytes (k), megabytes (M), gigabytes (G), etc</span><br></pre></td></tr></table></figure>
+<h1 id="working-with-files"><a href="#working-with-files" class="headerlink" title="working with files"></a>working with files</h1><h2 id="viewing-files"><a href="#viewing-files" class="headerlink" title="viewing files"></a>viewing files</h2><table>
+<thead>
+<tr>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cat</td>
+<td>Used for viewing files that are not very long; it does not provide any scroll-back.</td>
+</tr>
+<tr>
+<td>tac</td>
+<td>Used to look at a file backwards, starting with the last line.</td>
+</tr>
+<tr>
+<td>less</td>
+<td>Used to view larger files because it is a paging program; it pauses at each screenful of text, provides scroll-back capabilities, and lets you search and navigate within the file. Note: Use / to search for a pattern in the forward direction and ? for a pattern in the backward direction.</td>
+</tr>
+<tr>
+<td>tail</td>
+<td>Used to print the last 10 lines of a file by default. You can change the number of lines by doing -n 15 or just -15 if you wanted to look at the last 15 lines instead of the default.</td>
+</tr>
+<tr>
+<td>head</td>
+<td>The opposite of tail; by default it prints the first 10 lines of a file.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="touch-修改访问、修改时间或者新建空文件"><a href="#touch-修改访问、修改时间或者新建空文件" class="headerlink" title="touch 修改访问、修改时间或者新建空文件"></a>touch 修改访问、修改时间或者新建空文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch a.txt //新建名为a.txt的空文件</span><br><span class="line">touch -t 03201600 a.txt //修改a.txt的修改时间为3月20日16点</span><br></pre></td></tr></table></figure>
+<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><table>
+<thead>
+<tr>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mv</td>
+<td>移动或重命名文件或文件夹</td>
+</tr>
+<tr>
+<td>rm</td>
+<td>删除文件</td>
+</tr>
+<tr>
+<td>rm -f</td>
+<td>强制删除文件</td>
+</tr>
+<tr>
+<td>rm -i</td>
+<td>删除并提示确认</td>
+</tr>
+<tr>
+<td>rm -r</td>
+<td>删除文件夹以及文件夹下的所有文件</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>删除空的文件夹</td>
+</tr>
+</tbody>
+</table>
+<h1 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h1><table>
+<thead>
+<tr>
+<th>name</th>
+<th>descriptor</th>
+<th>redirect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stdin</td>
+<td>0</td>
+<td>&lt;</td>
+</tr>
+<tr>
+<td>stdout</td>
+<td>1</td>
+<td>&gt;</td>
+</tr>
+<tr>
+<td>stderr</td>
+<td>2</td>
+<td>2&gt;</td>
+</tr>
+</tbody>
+</table>
 <p>同时输出stdout和stderr</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ do_something &gt; all-output-file 2&gt;&amp;1</span><br><span class="line">or</span><br><span class="line">$ do_something &gt;&amp; all-output-file</span><br></pre></td></tr></table></figure>
-<p>#参考文档</p>
-<p>##man<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">man bla //显示跟bla有关的详细信息</span><br><span class="line">man -f bla //显示bla的概要，与whatis一样</span><br><span class="line">man -k bla //显示跟bla有关的指令的概要，与apropos一样</span><br><span class="line">//man pages分成 1 - 9个章节，章节后面可带字母</span><br><span class="line">man 3 printf //显示在第3章的printf</span><br><span class="line">man -a printf //显示所有章节的printf，一章一章的展示</span><br></pre></td></tr></table></figure></p>
-<p>##info GUN Info System<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">info blabla //显示blabla的信息</span><br></pre></td></tr></table></figure></p>
-<p>##help<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">help // 显示当前shell内置的指令的简要使用方法</span><br><span class="line">bla -h //显示bla指令的简要帮助页，某些指令可能没有</span><br><span class="line">bla --help // 同上</span><br><span class="line">help的速度比man、info要快</span><br></pre></td></tr></table></figure></p>
-<p>#File Operations</p>
-<p>##FileSystems</p>
-<p>###Mount Points<br>设备需要挂载到某个文件夹后才能使用，如果文件夹不为空，则挂载后不能访问原有文件，得解除挂载后才能访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda5 /home //将dev/sda5挂载到/home文件夹</span><br><span class="line">mount //显示当前挂载的文件系统</span><br><span class="line">df -Th //同上，同时显示使用情况</span><br><span class="line">/etc/fstab //修改该文件，可开机自动挂载</span><br></pre></td></tr></table></figure></p>
-<p>###The Network Filesystem</p>
-<p>####Server<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service nfs start //start nfs service</span><br><span class="line">/etc/exports //contains the directories and permissions that a host is willing to share with other systems over NFS. </span><br><span class="line">exportfs -av //update change</span><br><span class="line">sudo service nfs restart</span><br></pre></td></tr></table></figure></p>
-<p>####Client<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/fstab //to modified to accomplish nfs</span><br><span class="line">servername:/projects /mnt/nfs/projects nfs defaults 0 0 //sample</span><br><span class="line">mount servername:/projects /mnt/nfs/projects //one-time mount,without reboot</span><br></pre></td></tr></table></figure></p>
-<p>##FileSystem Architecture<br>|Directory|Usage|<br>|———|—–|<br>|/| root directory|<br>|/home|Each user has a home directory, usually placed under /home|<br>|/root|root user’s home directory|<br>|/bin|contains executable binaries, essential commands used in single-user mode, and essential commands required by all system users|<br>|/sbin|essential binaries related to system administration|<br>|/usr/bin|Commands that are not essential for the system in single-user mode|<br>|/usr/sbin|for less essential system administration programs|<br>|/dev|contains device nodes,Linux creating them dynamically when devices are found except for network devices|<br>|/var|contains files that are expected to change in size and content as the system is running such as the System log files: /var/log Packages and database files: /var/lib Print queues: /var/spool Temp files: /var/tmp|<br>|/etc|home for system configuration files|<br>|/boot|contains the few essential files needed to boot the system|<br>|/lib|contains libraries (common code shared by applications and needed for them to run) for the essential programs in /bin and /sbin|<br>|/media| typically located where removable media, such as CDs, DVDs and USB drives are mounted|<br>|/opt| Optional application software packages.|<br>|/sys|Virtual pseudo-filesystem giving information about the system and the hardware. Can be used to alter system parameters and for debugging purposes.|<br>|/srv| Site-specific data served up by the system. Seldom used.|<br>|/tmp| Temporary files; on some distributions erased across a reboot and/or may actually be a ramdisk in memory. |<br>|/usr| Multi-user applications, utilities and data. |<br>|/usr/|include Header files used to compile applications. |<br>|/usr/lib| Libraries for programs in /usr/bin and /usr/sbin.|<br>|/usr/lib64| 64-bit libraries for 64-bit programs in /usr/bin and /usr/sbin.|<br>|/usr/sbin| Non-essential system binaries, such as system daemons. |<br>|/usr/share| Shared data used by applications, generally architecture-independent.|<br>|/usr/src| Source code, usually for the Linux kernel. |<br>|/usr/X11R6| X Window configuration files; generally obsolete.|<br>|/usr/local| Data and programs specific to the local machine. Subdirectories include bin, sbin, lib, share, include, etc. |<br>|/usr/bin| This is the primary directory of executable commands on the system.|  </p>
-<p>##Comparing Files and File Types</p>
-<p>###diff &amp; patch<br>|diff Option| Usage|<br>|——|——|<br>|-c|Provides a listing of differences that include 3 lines of context before and after the lines differing in content |<br>|-r|Used to recursively compare subdirectories as well as the current directory |<br>|-i |Ignore the case of letters |<br>|-w |Ignore differences in spaces and tabs (white space) |</p>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><h2 id="man"><a href="#man" class="headerlink" title="man"></a>man</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">man bla //显示跟bla有关的详细信息</span><br><span class="line">man -f bla //显示bla的概要，与whatis一样</span><br><span class="line">man -k bla //显示跟bla有关的指令的概要，与apropos一样</span><br><span class="line">//man pages分成 1 - 9个章节，章节后面可带字母</span><br><span class="line">man 3 printf //显示在第3章的printf</span><br><span class="line">man -a printf //显示所有章节的printf，一章一章的展示</span><br></pre></td></tr></table></figure>
+<h2 id="info-GUN-Info-System"><a href="#info-GUN-Info-System" class="headerlink" title="info GUN Info System"></a>info GUN Info System</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">info blabla //显示blabla的信息</span><br></pre></td></tr></table></figure>
+<h2 id="help"><a href="#help" class="headerlink" title="help"></a>help</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">help // 显示当前shell内置的指令的简要使用方法</span><br><span class="line">bla -h //显示bla指令的简要帮助页，某些指令可能没有</span><br><span class="line">bla --help // 同上</span><br><span class="line">help的速度比man、info要快</span><br></pre></td></tr></table></figure>
+<h1 id="File-Operations"><a href="#File-Operations" class="headerlink" title="File Operations"></a>File Operations</h1><h2 id="FileSystems"><a href="#FileSystems" class="headerlink" title="FileSystems"></a>FileSystems</h2><h3 id="Mount-Points"><a href="#Mount-Points" class="headerlink" title="Mount Points"></a>Mount Points</h3><p>设备需要挂载到某个文件夹后才能使用，如果文件夹不为空，则挂载后不能访问原有文件，得解除挂载后才能访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda5 /home //将dev/sda5挂载到/home文件夹</span><br><span class="line">mount //显示当前挂载的文件系统</span><br><span class="line">df -Th //同上，同时显示使用情况</span><br><span class="line">/etc/fstab //修改该文件，可开机自动挂载</span><br></pre></td></tr></table></figure></p>
+<h3 id="The-Network-Filesystem"><a href="#The-Network-Filesystem" class="headerlink" title="The Network Filesystem"></a>The Network Filesystem</h3><h4 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service nfs start //start nfs service</span><br><span class="line">/etc/exports //contains the directories and permissions that a host is willing to share with other systems over NFS. </span><br><span class="line">exportfs -av //update change</span><br><span class="line">sudo service nfs restart</span><br></pre></td></tr></table></figure>
+<h4 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/fstab //to modified to accomplish nfs</span><br><span class="line">servername:/projects /mnt/nfs/projects nfs defaults 0 0 //sample</span><br><span class="line">mount servername:/projects /mnt/nfs/projects //one-time mount,without reboot</span><br></pre></td></tr></table></figure>
+<h2 id="FileSystem-Architecture"><a href="#FileSystem-Architecture" class="headerlink" title="FileSystem Architecture"></a>FileSystem Architecture</h2><table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/</td>
+<td>root directory</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>Each user has a home directory, usually placed under /home</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>root user’s home directory</td>
+</tr>
+<tr>
+<td>/bin</td>
+<td>contains executable binaries, essential commands used in single-user mode, and essential commands required by all system users</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>essential binaries related to system administration</td>
+</tr>
+<tr>
+<td>/usr/bin</td>
+<td>Commands that are not essential for the system in single-user mode</td>
+</tr>
+<tr>
+<td>/usr/sbin</td>
+<td>for less essential system administration programs</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>contains device nodes,Linux creating them dynamically when devices are found except for network devices</td>
+</tr>
+<tr>
+<td>/var</td>
+<td>contains files that are expected to change in size and content as the system is running such as the System log files: /var/log Packages and database files: /var/lib Print queues: /var/spool Temp files: /var/tmp</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>home for system configuration files</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>contains the few essential files needed to boot the system</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>contains libraries (common code shared by applications and needed for them to run) for the essential programs in /bin and /sbin</td>
+</tr>
+<tr>
+<td>/media</td>
+<td>typically located where removable media, such as CDs, DVDs and USB drives are mounted</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>Optional application software packages.</td>
+</tr>
+<tr>
+<td>/sys</td>
+<td>Virtual pseudo-filesystem giving information about the system and the hardware. Can be used to alter system parameters and for debugging purposes.</td>
+</tr>
+<tr>
+<td>/srv</td>
+<td>Site-specific data served up by the system. Seldom used.</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>Temporary files; on some distributions erased across a reboot and/or may actually be a ramdisk in memory.</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>Multi-user applications, utilities and data.</td>
+</tr>
+<tr>
+<td>/usr/</td>
+<td>include Header files used to compile applications.</td>
+</tr>
+<tr>
+<td>/usr/lib</td>
+<td>Libraries for programs in /usr/bin and /usr/sbin.</td>
+</tr>
+<tr>
+<td>/usr/lib64</td>
+<td>64-bit libraries for 64-bit programs in /usr/bin and /usr/sbin.</td>
+</tr>
+<tr>
+<td>/usr/sbin</td>
+<td>Non-essential system binaries, such as system daemons.</td>
+</tr>
+<tr>
+<td>/usr/share</td>
+<td>Shared data used by applications, generally architecture-independent.</td>
+</tr>
+<tr>
+<td>/usr/src</td>
+<td>Source code, usually for the Linux kernel.</td>
+</tr>
+<tr>
+<td>/usr/X11R6</td>
+<td>X Window configuration files; generally obsolete.</td>
+</tr>
+<tr>
+<td>/usr/local</td>
+<td>Data and programs specific to the local machine. Subdirectories include bin, sbin, lib, share, include, etc.</td>
+</tr>
+<tr>
+<td>/usr/bin</td>
+<td>This is the primary directory of executable commands on the system.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Comparing-Files-and-File-Types"><a href="#Comparing-Files-and-File-Types" class="headerlink" title="Comparing Files and File Types"></a>Comparing Files and File Types</h2><h3 id="diff-amp-patch"><a href="#diff-amp-patch" class="headerlink" title="diff &amp; patch"></a>diff &amp; patch</h3><table>
+<thead>
+<tr>
+<th>diff Option</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>Provides a listing of differences that include 3 lines of context before and after the lines differing in content</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>Used to recursively compare subdirectories as well as the current directory</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>Ignore the case of letters</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>Ignore differences in spaces and tabs (white space)</td>
+</tr>
+</tbody>
+</table>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">diff a.txt b.txt</span><br><span class="line">diff3 MY-FILE COMMON-FILE YOUR-FILE // 3 files</span><br><span class="line">diff -Nur originalfile newfile &gt; patchfile</span><br><span class="line">diff -au filea fileb &gt; patchfile</span><br><span class="line">patch -p1 &lt; patchfile</span><br><span class="line">patch originalfile patchfile</span><br></pre></td></tr></table></figure>
-<p>###file 查看文件类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file hello.c</span><br><span class="line">file a</span><br><span class="line">file hello.o</span><br></pre></td></tr></table></figure></p>
-<p>##Backing Up and Compressing Data</p>
-<p>###rsync<br>copies only the parts of files that have actually changed, it can be very fast than cp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rsync sourcefile destinationfile</span><br><span class="line">rsync -r sourcedir destinationdir</span><br></pre></td></tr></table></figure></p>
+<h3 id="file-查看文件类型"><a href="#file-查看文件类型" class="headerlink" title="file 查看文件类型"></a>file 查看文件类型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file hello.c</span><br><span class="line">file a</span><br><span class="line">file hello.o</span><br></pre></td></tr></table></figure>
+<h2 id="Backing-Up-and-Compressing-Data"><a href="#Backing-Up-and-Compressing-Data" class="headerlink" title="Backing Up and Compressing Data"></a>Backing Up and Compressing Data</h2><p>###rsync<br>copies only the parts of files that have actually changed, it can be very fast than cp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rsync sourcefile destinationfile</span><br><span class="line">rsync -r sourcedir destinationdir</span><br></pre></td></tr></table></figure></p>
 <p>###Compressing Data<br>|Command |Usage|<br>|——–|—–|<br>|gzip |The most frequently used Linux compression utility |<br>|bzip2 |Produces files significantly smaller than those produced by gzip|<br>|xz |The most space efficient compression utility used in Linux |<br>|zip| Is often required to examine and decompress archives from other operating systems |</p>
 <table>
 <thead>
@@ -679,6 +923,14 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/08/10/Strings-Transcoding/" title="Strings Transcoding">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Strings Transcoding</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/06/20/Getting-started-with-Hexo/"  title="Getting started with Hexo">
@@ -696,7 +948,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#root"><span class="toc-number">1.</span> <span class="toc-text">root</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Exploring-the-Filesystem"><span class="toc-number">1.</span> <span class="toc-text">Exploring the Filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#cd-切换目录"><span class="toc-number">1.1.</span> <span class="toc-text">cd 切换目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwd-显示当前目录"><span class="toc-number">1.2.</span> <span class="toc-text">pwd 显示当前目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ls-显示目录下的内容"><span class="toc-number">1.3.</span> <span class="toc-text">ls 显示目录下的内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tree-按树的结构显示目录"><span class="toc-number">1.4.</span> <span class="toc-text">tree 按树的结构显示目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mkdir-新建目录"><span class="toc-number">1.5.</span> <span class="toc-text">mkdir 新建目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rm-r-删除文件夹"><span class="toc-number">1.6.</span> <span class="toc-text">rm -r 删除文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ln-链接Links"><span class="toc-number">1.7.</span> <span class="toc-text">ln 链接Links</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pushd-前往并将目录压栈"><span class="toc-number">1.8.</span> <span class="toc-text">pushd 前往并将目录压栈</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#popd-弹出并前往栈顶目录"><span class="toc-number">1.9.</span> <span class="toc-text">popd 弹出并前往栈顶目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dirs-查看栈中的目录"><span class="toc-number">1.10.</span> <span class="toc-text">dirs 查看栈中的目录</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Searching-for-Files"><span class="toc-number">2.</span> <span class="toc-text">Searching for Files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#locate-查找所有匹配的结果"><span class="toc-number">2.1.</span> <span class="toc-text">locate 查找所有匹配的结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通配符Wildcard"><span class="toc-number">2.2.</span> <span class="toc-text">通配符Wildcard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find-查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢"><span class="toc-number">2.3.</span> <span class="toc-text">find 查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#working-with-files"><span class="toc-number">3.</span> <span class="toc-text">working with files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#viewing-files"><span class="toc-number">3.1.</span> <span class="toc-text">viewing files</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#touch-修改访问、修改时间或者新建空文件"><span class="toc-number">3.2.</span> <span class="toc-text">touch 修改访问、修改时间或者新建空文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除文件"><span class="toc-number">3.3.</span> <span class="toc-text">删除文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IO"><span class="toc-number">4.</span> <span class="toc-text">IO</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文档"><span class="toc-number">5.</span> <span class="toc-text">参考文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#man"><span class="toc-number">5.1.</span> <span class="toc-text">man</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#info-GUN-Info-System"><span class="toc-number">5.2.</span> <span class="toc-text">info GUN Info System</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#help"><span class="toc-number">5.3.</span> <span class="toc-text">help</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-Operations"><span class="toc-number">6.</span> <span class="toc-text">File Operations</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FileSystems"><span class="toc-number">6.1.</span> <span class="toc-text">FileSystems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mount-Points"><span class="toc-number">6.1.1.</span> <span class="toc-text">Mount Points</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Network-Filesystem"><span class="toc-number">6.1.2.</span> <span class="toc-text">The Network Filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Server"><span class="toc-number">6.1.2.1.</span> <span class="toc-text">Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Client"><span class="toc-number">6.1.2.2.</span> <span class="toc-text">Client</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FileSystem-Architecture"><span class="toc-number">6.2.</span> <span class="toc-text">FileSystem Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparing-Files-and-File-Types"><span class="toc-number">6.3.</span> <span class="toc-text">Comparing Files and File Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#diff-amp-patch"><span class="toc-number">6.3.1.</span> <span class="toc-text">diff & patch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#file-查看文件类型"><span class="toc-number">6.3.2.</span> <span class="toc-text">file 查看文件类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backing-Up-and-Compressing-Data"><span class="toc-number">6.4.</span> <span class="toc-text">Backing Up and Compressing Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#root"><span class="toc-number">6.5.</span> <span class="toc-text">root</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
@@ -708,7 +960,11 @@
 	<p class="asidetitle">分类</p>
 		<ul>
 		
+			<li><a href="/categories/Command-Alogorithm/" title="Command Alogorithm">Command Alogorithm<sup>1</sup></a></li>
+		
 			<li><a href="/categories/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Command-Alogorithm/Transcode/" title="Transcode">Transcode<sup>1</sup></a></li>
 		
 			<li><a href="/categories/introduction/" title="introduction">introduction<sup>1</sup></a></li>
 		
@@ -722,6 +978,8 @@
 		<ul class="clearfix">
 		
 			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/MD5/" title="MD5">MD5<sup>1</sup></a></li>
 		
 			<li><a href="/tags/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
 		
