@@ -1,0 +1,359 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>NAT traversal | kohit&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Wind Vane">
+    
+    <meta name="description" content="NAT通常家用的路由器实际上就是NAT路由器，并非计算机网络IP层的路由器。NAT全称为 Network Address Translation (网络地址转换)，其通过维护NAT转换表(NAT translation table)，实现局域网内的主机共用一个公网IP地址，且局域网内（家里）的主机感">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="kohit&#39;s blog">kohit&#39;s blog</a></h1>
+				<h2 class="blog-motto">D.va上线啦</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:kohit.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/11/17/NAT-traversal/" title="NAT traversal" itemprop="url">NAT traversal</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://kohit.github.io" title="Wind Vane">Wind Vane</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2016-11-17T14:51:28.000Z" itemprop="datePublished">2016-11-17</time>
+    更新日期:<time datetime="2016-11-17T23:55:41.433Z" itemprop="dateModified">2016-11-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NAT"><span class="toc-number">1.</span> <span class="toc-text">NAT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NAT工作实例"><span class="toc-number">1.1.</span> <span class="toc-text">NAT工作实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">1.2.</span> <span class="toc-text">解决方案</span></a></li></ol></li></ol>
+		</div>
+		
+		<h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><p>通常家用的路由器实际上就是NAT路由器，并非计算机网络IP层的路由器。<br>NAT全称为 <strong>Network Address Translation (网络地址转换)</strong>，其通过维护<strong>NAT转换表(NAT translation table)</strong>，实现局域网内的主机共用一个公网IP地址，且局域网内（家里）的主机感觉不到NAT的存在。<br>NAT的存在严重违反了进程设立端口号的初衷，切断了主机彼此直接对话的通道（端到端原则）。使得对于编程人员来说及其不友好！尤其是使用(NAT)家庭网络来运行服务器程序的时候，非局域网的主机难以访问服务器。<br>还有一点，NAT映射有两种，分别是<em>Cone NAT</em> 和 <em>Symmetric NAT</em>，前者映射期间端口号不变，后者端口号动态改变，下面提的都是围绕着端口号不变展开的。</p>
+<h2 id="NAT工作实例"><a href="#NAT工作实例" class="headerlink" title="NAT工作实例"></a>NAT工作实例</h2><p>假设家里主机A在受NAT控制的网络中，家里的公网IP地址为123.123.123.123，A的地址为172.0.0.1，此时A（假如用端口213，通常浏览器随机选用一个端口）访问acg.tv（假设其公网地址为233.233.233.233，端口为80），<br>则其报文会先通过NAT路由器，此时NAT路由器会拆开你的报文，找到TCP首部的源和目的端口号，然后在NAT转换表添加一条记录，大概为<br>172.0.0.1:213 –&gt; 233.233.233.233:80，同时建立一个持续一定时间（如几分钟）的会话状态（超过这个时间会删除这条记录）。<br>添加完记录后，NAT将随机生成一个端口号（比如666），修改原来报文TCP首部的源端口号及IP首部的源IP地址，然后发到公网。<br>上述过程称为<strong>NAT穿透(NAT Traversal)</strong>。<br>此时acg.tv收到的报文，源IP:端口为123.123.123.123:666而不是172.0.0.1:213，可见acg.tv并不知道后者的存在，而A也不知道报文被NAT路由器偷偷修改了。</p>
+<p>假如有一台外地主机B（213.213.213.213:2333)访问172.0.0.1:213，显然主机B的路由器不会发送给A，因为这个地址是IP协议规定的内网地址，路由器不会将其发到公网。<br>当主机B访问123.123.123.123:666（即此时A的公网地址），路由器会将报文交给A所在网络的NAT路由器，<em>然而这个NAT路由器不会将报文发给A</em>,<br>因为前面提到，与172.0.0.1:21关联的目的地址为233.233.233.233:80（acg.tv），而不是B。<br>上面例子也说明了前面提到的，A无法直接运行服务器程序的原因。因为<em>服务器是被动接受来自客户端的请求</em>，而NAT路由器的存在使得A只能主动与外界联系，这与服务器的定位不符合。<br>继续这个例子，假如A得知B的地址，并访问了一次B（不论B是否响应），此时NAT转换表就增加了A到B的映射（地址对应关系），因而在之后B能访问A。<br>假如是acg.tv把B的地址告诉A的，则这种情况称为<strong>连接反转（connection reversal）</strong>。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>要想让外来主机与A联系，其中一个方法是利用NAT穿透机制，让一台具有公网IP的主机（假如acg.tv）作为中介一直持续地为主机A提供服务，主要是两个服务:</p>
+<ul>
+<li>告知外来主机A此时的公网IP:端口（如前面提到的123.123.123.123:666）</li>
+<li>告知A外来主机的公网IP:端口（理由见上面B访问A的案例）<br>此时A要主动访问一次外来主机（无论对方是否响应），才可建立双方连接。<br>这个方案适用于P2P（点对点）应用程序，因为P2P应用有公网的追踪服务器(tracker)来提供中介服务。<br>然而对于服务器应用程序没有帮助，还是因为服务器是被动接收请求的。而且如有专用的公网IP的主机，那用该公网主机作为服务器就没这些麻烦了。</li>
+</ul>
+<p>另一个方法是采用<strong>UPnP</strong>协议，使用该协议，能够直接配置NAT（如该NAT路由器接收修改请求）的转换表，使得A可以有固定的公网IP：端口。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Computer-Network/">Computer Network</a><a href="/tags/NAT/">NAT</a><a href="/tags/P2P/">P2P</a><a href="/tags/Client-Server/">Client-Server</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Computer-Network/">Computer Network</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://kohit.github.io/2016/11/17/NAT-traversal/" data-title="NAT traversal | kohit&#39;s blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2016/11/26/Permutation-and-Combination/" title="Permutation and Combination">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Permutation and Combination</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2016/08/10/Strings-Transcoding/"  title="Strings Transcoding">
+ <strong>NEXT:</strong><br/> 
+ <span>Strings Transcoding
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NAT"><span class="toc-number">1.</span> <span class="toc-text">NAT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NAT工作实例"><span class="toc-number">1.1.</span> <span class="toc-text">NAT工作实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">1.2.</span> <span class="toc-text">解决方案</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Command-Alogorithm/" title="Command Alogorithm">Command Alogorithm<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Computer-Network/" title="Computer Network">Computer Network<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Mathematics/" title="Mathematics">Mathematics<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Command-Alogorithm/Transcode/" title="Transcode">Transcode<sup>1</sup></a></li>
+		
+			<li><a href="/categories/introduction/" title="introduction">introduction<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Client-Server/" title="Client-Server">Client-Server<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Combination/" title="Combination">Combination<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Computer-Network/" title="Computer Network">Computer Network<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/MD5/" title="MD5">MD5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Mathematics/" title="Mathematics">Mathematics<sup>1</sup></a></li>
+		
+			<li><a href="/tags/NAT/" title="NAT">NAT<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/tags/P2P/" title="P2P">P2P<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Permutation/" title="Permutation">Permutation<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+			<li><a href="/tags/command/" title="command">command<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li><a href="/tags/ubuntu/" title="ubuntu">ubuntu<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <br>
+      &copy; 2016 Wind Vane<br>
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+       &amp; theme based on  <a href="https://github.com/A-limon/pacman" target="_blank">pacman</a>
+    </div>
+  </div>
+</footer></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
