@@ -1,0 +1,1265 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Basic commands of linux | kohit&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Wind Vane">
+    
+    <meta name="description" content="LinuxFoundationX: LFS101x.2 Introduction to Linux
+
+Exploring the Filesystemcd切换目录
+12345678cd //切换到主目录cd ~ //同上cd - //回到上一次访问的目录cd .. //回到上一层目录cd /blab">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="kohit&#39;s blog">kohit&#39;s blog</a></h1>
+				<h2 class="blog-motto">D.va上线啦</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:kohit.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/05/21/basic-commands-of-linux/" title="Basic commands of linux" itemprop="url">Basic commands of linux</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://kohit.github.io" title="Wind Vane">Wind Vane</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2019-05-21T07:18:26.705Z" itemprop="datePublished">2019-05-21</time>
+    更新日期:<time datetime="2016-08-10T08:54:53.985Z" itemprop="dateModified">2016-08-10</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Exploring-the-Filesystem"><span class="toc-number">1.</span> <span class="toc-text">Exploring the Filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#cd"><span class="toc-number">1.1.</span> <span class="toc-text">cd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ls"><span class="toc-number">1.2.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tree"><span class="toc-number">1.3.</span> <span class="toc-text">tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mkdir"><span class="toc-number">1.4.</span> <span class="toc-text">mkdir</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rm-r"><span class="toc-number">1.5.</span> <span class="toc-text">rm -r</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ln"><span class="toc-number">1.6.</span> <span class="toc-text">ln</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pushd"><span class="toc-number">1.7.</span> <span class="toc-text">pushd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#popd"><span class="toc-number">1.8.</span> <span class="toc-text">popd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dirs"><span class="toc-number">1.9.</span> <span class="toc-text">dirs</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Searching-for-Files"><span class="toc-number">2.</span> <span class="toc-text">Searching for Files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#locate"><span class="toc-number">2.1.</span> <span class="toc-text">locate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通配符Wildcard"><span class="toc-number">2.2.</span> <span class="toc-text">通配符Wildcard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">2.3.</span> <span class="toc-text">find</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#working-with-files"><span class="toc-number">3.</span> <span class="toc-text">working with files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#viewing-files"><span class="toc-number">3.1.</span> <span class="toc-text">viewing files</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#touch"><span class="toc-number">3.2.</span> <span class="toc-text">touch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除文件"><span class="toc-number">3.3.</span> <span class="toc-text">删除文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IO"><span class="toc-number">4.</span> <span class="toc-text">IO</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文档"><span class="toc-number">5.</span> <span class="toc-text">参考文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#man"><span class="toc-number">5.1.</span> <span class="toc-text">man</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#info"><span class="toc-number">5.2.</span> <span class="toc-text">info</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#help"><span class="toc-number">5.3.</span> <span class="toc-text">help</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-Operations"><span class="toc-number">6.</span> <span class="toc-text">File Operations</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FileSystems"><span class="toc-number">6.1.</span> <span class="toc-text">FileSystems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mount-Points"><span class="toc-number">6.1.1.</span> <span class="toc-text">Mount Points</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Network-Filesystem"><span class="toc-number">6.1.2.</span> <span class="toc-text">The Network Filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Server"><span class="toc-number">6.1.2.1.</span> <span class="toc-text">Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Client"><span class="toc-number">6.1.2.2.</span> <span class="toc-text">Client</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FileSystem-Architecture"><span class="toc-number">6.2.</span> <span class="toc-text">FileSystem Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparing-Files-and-File-Types"><span class="toc-number">6.3.</span> <span class="toc-text">Comparing Files and File Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#diff-amp-patch"><span class="toc-number">6.3.1.</span> <span class="toc-text">diff & patch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#file-查看文件类型"><span class="toc-number">6.3.2.</span> <span class="toc-text">file 查看文件类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backing-Up-and-Compressing-Data"><span class="toc-number">6.4.</span> <span class="toc-text">Backing Up and Compressing Data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rsync"><span class="toc-number">6.4.1.</span> <span class="toc-text">rsync</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Compressing-Data"><span class="toc-number">6.4.2.</span> <span class="toc-text">Compressing Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tar-打包"><span class="toc-number">6.4.3.</span> <span class="toc-text">tar 打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dd-Disk-to-Disk-Copying"><span class="toc-number">6.4.4.</span> <span class="toc-text">dd Disk-to-Disk Copying</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#USER-ENVIRONMENT"><span class="toc-number">7.</span> <span class="toc-text">USER ENVIRONMENT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#识别用户"><span class="toc-number">7.1.</span> <span class="toc-text">识别用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加用户"><span class="toc-number">7.2.</span> <span class="toc-text">添加用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改用户密码"><span class="toc-number">7.3.</span> <span class="toc-text">修改用户密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加组"><span class="toc-number">7.4.</span> <span class="toc-text">添加组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件"><span class="toc-number">7.5.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境变量"><span class="toc-number">7.6.</span> <span class="toc-text">环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主目录-HOME"><span class="toc-number">7.6.1.</span> <span class="toc-text">主目录 $HOME</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路径-PATH"><span class="toc-number">7.6.2.</span> <span class="toc-text">路径 $PATH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提示语句-PS1"><span class="toc-number">7.6.3.</span> <span class="toc-text">提示语句 PS1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令历史"><span class="toc-number">7.7.</span> <span class="toc-text">命令历史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令别名"><span class="toc-number">7.8.</span> <span class="toc-text">命令别名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件权限"><span class="toc-number">7.9.</span> <span class="toc-text">文件权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#su-切换用户，不提倡使用"><span class="toc-number">8.</span> <span class="toc-text">su 切换用户，不提倡使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sudo-临时使用root权限"><span class="toc-number">9.</span> <span class="toc-text">sudo 临时使用root权限</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关机，重启"><span class="toc-number">10.</span> <span class="toc-text">关机，重启</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#shutdown-关机，重启-root"><span class="toc-number">10.1.</span> <span class="toc-text">shutdown 关机，重启 (root)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#halt-关机-root"><span class="toc-number">10.2.</span> <span class="toc-text">halt 关机(root)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poweroff-关机-root"><span class="toc-number">10.3.</span> <span class="toc-text">poweroff 关机(root)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#init-0-关机-root"><span class="toc-number">10.4.</span> <span class="toc-text">init 0 关机(root)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭图形界面"><span class="toc-number">10.5.</span> <span class="toc-text">关闭图形界面</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装应用程序"><span class="toc-number">11.</span> <span class="toc-text">安装应用程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#程序定位"><span class="toc-number">12.</span> <span class="toc-text">程序定位</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#which"><span class="toc-number">12.1.</span> <span class="toc-text">which</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#whereis"><span class="toc-number">12.2.</span> <span class="toc-text">whereis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文本操作"><span class="toc-number">13.</span> <span class="toc-text">文本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#echo"><span class="toc-number">13.1.</span> <span class="toc-text">echo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cat"><span class="toc-number">13.2.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nano"><span class="toc-number">13.3.</span> <span class="toc-text">nano</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gedit"><span class="toc-number">13.4.</span> <span class="toc-text">gedit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim"><span class="toc-number">13.5.</span> <span class="toc-text">vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sed-多文本操作"><span class="toc-number">13.6.</span> <span class="toc-text">sed 多文本操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#awk-提取内容"><span class="toc-number">13.7.</span> <span class="toc-text">awk 提取内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-Manipulation-Utilities"><span class="toc-number">14.</span> <span class="toc-text">File Manipulation Utilities</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sort-排序"><span class="toc-number">14.1.</span> <span class="toc-text">sort 排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uniq-去重"><span class="toc-number">14.2.</span> <span class="toc-text">uniq 去重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#paste-黏贴"><span class="toc-number">14.3.</span> <span class="toc-text">paste 黏贴</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#join-连接"><span class="toc-number">14.4.</span> <span class="toc-text">join 连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#split-分割"><span class="toc-number">14.5.</span> <span class="toc-text">split 分割</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式"><span class="toc-number">15.</span> <span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Security"><span class="toc-number">16.</span> <span class="toc-text">Security</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#last-每个账户上次（包含正在登陆的）登陆的时间"><span class="toc-number">16.1.</span> <span class="toc-text">last 每个账户上次（包含正在登陆的）登陆的时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#root"><span class="toc-number">16.2.</span> <span class="toc-text">root</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#su-与-sudo"><span class="toc-number">16.3.</span> <span class="toc-text">su 与 sudo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#password-密码"><span class="toc-number">16.4.</span> <span class="toc-text">password 密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#chage-用来规划用户密码，比如密码过期时间，多久要修改密码等"><span class="toc-number">16.4.1.</span> <span class="toc-text">chage 用来规划用户密码，比如密码过期时间，多久要修改密码等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PAM-Pluggable-Authentication-Modules-用来增强passwd命令"><span class="toc-number">16.4.2.</span> <span class="toc-text">PAM (Pluggable Authentication Modules) 用来增强passwd命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#boot-loader"><span class="toc-number">16.5.</span> <span class="toc-text">boot loader</span></a></li></ol></li></ol>
+		</div>
+		
+		<blockquote>
+<p>LinuxFoundationX: LFS101x.2 Introduction to Linux</p>
+</blockquote>
+<h1 id="Exploring-the-Filesystem"><a href="#Exploring-the-Filesystem" class="headerlink" title="Exploring the Filesystem"></a>Exploring the Filesystem</h1><h2 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h2><p>切换目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd //切换到主目录</span><br><span class="line">cd ~ //同上</span><br><span class="line">cd - //回到上一次访问的目录</span><br><span class="line">cd .. //回到上一层目录</span><br><span class="line">cd /blabla //绝对地址，从 / 开始</span><br><span class="line">cd blabla //相对地址，从当前目录开始</span><br><span class="line">cd ./blabla //同上</span><br><span class="line">cd .//blabla //同上，多个///可视作一个/</span><br></pre></td></tr></table></figure>
+<p>##pwd<br>显示当前目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br></pre></td></tr></table></figure>
+<h2 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h2><p>显示目录下的内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls //显示当前目录下的内容</span><br><span class="line">ls -a //显示当前目录下的内容，包括隐藏文件</span><br><span class="line">ls -l //显示更详细的内容，包括日期，大小，权限等</span><br><span class="line">ls -i //显示inode</span><br><span class="line">l //显示目录下的内容（Ubuntu）</span><br></pre></td></tr></table></figure>
+<h2 id="tree"><a href="#tree" class="headerlink" title="tree"></a>tree</h2><p>按树的结构显示目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tree //当面目录按树结构展示</span><br><span class="line">tree -d //只展示目录</span><br></pre></td></tr></table></figure>
+<h2 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h2><p>新建目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir blabla //在当前目录新建blabla文件夹</span><br><span class="line">mkdir ./blabla //同上</span><br><span class="line">mkdir bla/blabla //在当前目录下的bla文件夹内新建blabla文件夹</span><br></pre></td></tr></table></figure>
+<h2 id="rm-r"><a href="#rm-r" class="headerlink" title="rm -r"></a>rm -r</h2><p>删除文件夹</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rm -r blabla //删除当前目录下的blabla文件夹</span><br></pre></td></tr></table></figure>
+<h2 id="ln"><a href="#ln" class="headerlink" title="ln"></a>ln</h2><p>链接Links</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ln file1 file2 //hard link，inode相同，相当于取别名，删除一个链接不会删除文件（如有有其他别名的话）</span><br><span class="line">ln -s file1 file2 //soft link，inode不同</span><br><span class="line">ln -s bla/blabla blabla // bla/blabla可以是文件夹</span><br><span class="line">ln -s bla // 空链接（dangling link）</span><br><span class="line">// 不同的编辑器可能对链接的文件的操作方式不同，可能在同一个文件修改，也可能新建一个文件</span><br></pre></td></tr></table></figure>
+<h2 id="pushd"><a href="#pushd" class="headerlink" title="pushd"></a>pushd</h2><p>前往并将目录压栈<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pushd tmp //前往当前目录下的tmp文件夹（跟cd相同），同时将tmp文件夹压栈</span><br></pre></td></tr></table></figure></p>
+<h2 id="popd"><a href="#popd" class="headerlink" title="popd"></a>popd</h2><p>弹出并前往栈顶目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">popd</span><br></pre></td></tr></table></figure></p>
+<h2 id="dirs"><a href="#dirs" class="headerlink" title="dirs"></a>dirs</h2><p>查看栈中的目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirs</span><br></pre></td></tr></table></figure></p>
+<h1 id="Searching-for-Files"><a href="#Searching-for-Files" class="headerlink" title="Searching for Files"></a>Searching for Files</h1><h2 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h2><p>查找所有匹配的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate zip | grep bin //查找zip，结果当作输入给后面的grep指令，再进一步缩小范围</span><br></pre></td></tr></table></figure></p>
+<p>locate是通过文件的数据库查找的，数据库通常1天更新一次，可以手动更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">updatedb //更新数据库</span><br></pre></td></tr></table></figure></p>
+<h2 id="通配符Wildcard"><a href="#通配符Wildcard" class="headerlink" title="通配符Wildcard"></a>通配符Wildcard</h2><table>
+<thead>
+<tr>
+<th>Wildcard</th>
+<th>result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>?</td>
+<td>一个任意字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>零个或任意多个任意字符</td>
+</tr>
+<tr>
+<td>[set]</td>
+<td>set里的其中一个字符</td>
+</tr>
+<tr>
+<td>[!set]</td>
+<td>set里的字符外的一个字符</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sample</span><br><span class="line">ls he?.out</span><br><span class="line">ls hel.*</span><br><span class="line">ls h[a-e][al].out</span><br><span class="line">ls h[!f-z]l.out</span><br></pre></td></tr></table></figure>
+<h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><p>查找指定目录下的所有文件（包含目录以及子目录和子目录下的文件），速度有些慢</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">find //输出当前目录下的的所有文件</span><br><span class="line">find . //同上</span><br><span class="line">find . -name a //当前目录下的名为a的文件/文件夹</span><br><span class="line">find . -name &quot;a?c&quot; //模糊查找用引号</span><br><span class="line">find . -type d -name tmp //查找名为tmp的文件夹</span><br><span class="line">find . -type f -name tmp //查找名为tmp的文件</span><br><span class="line">find -name &quot;*.swp&quot; -exec rm &#123;&#125; &apos;;&apos; //查找名为*.swp的文件，将其地址放到&#123;&#125;内，对每个结果执行-exec 后面的指令</span><br><span class="line">find -name &quot;*.swp&quot; -exec rm &#123;&#125; \; //末尾必须为&apos;;&apos;（包含引号）或\;(包含分号)</span><br><span class="line">find -name &quot;*.swp&quot; -ok rm &#123;&#125; \; //类似-exec,只是操作时会提示确认</span><br><span class="line">find / -ctime 3 //查找/下3天(0表示今天)修改过权限的文件，对应的有-atime最后访问 -mtime最后修改</span><br><span class="line">find -mmin -3 //查找当前目录下3分钟内修改过的文件，对应的有-amin和-cmin，-3表示3以内，+3表示3以上</span><br><span class="line">find -size 0 //查找大小为0块的文件(512字节)</span><br><span class="line">find -size +2M //大于2M的文件，bytes (c), kilobytes (k), megabytes (M), gigabytes (G), etc</span><br></pre></td></tr></table></figure>
+<h1 id="working-with-files"><a href="#working-with-files" class="headerlink" title="working with files"></a>working with files</h1><h2 id="viewing-files"><a href="#viewing-files" class="headerlink" title="viewing files"></a>viewing files</h2><table>
+<thead>
+<tr>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cat</td>
+<td>Used for viewing files that are not very long; it does not provide any scroll-back.</td>
+</tr>
+<tr>
+<td>tac</td>
+<td>Used to look at a file backwards, starting with the last line.</td>
+</tr>
+<tr>
+<td>less</td>
+<td>Used to view larger files because it is a paging program; it pauses at each screenful of text, provides scroll-back capabilities, and lets you search and navigate within the file. Note: Use / to search for a pattern in the forward direction and ? for a pattern in the backward direction.</td>
+</tr>
+<tr>
+<td>tail</td>
+<td>Used to print the last 10 lines of a file by default. You can change the number of lines by doing -n 15 or just -15 if you wanted to look at the last 15 lines instead of the default.</td>
+</tr>
+<tr>
+<td>head</td>
+<td>The opposite of tail; by default it prints the first 10 lines of a file.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h2><p>修改访问、修改时间或者新建空文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch a.txt //新建名为a.txt的空文件</span><br><span class="line">touch -t 03201600 a.txt //修改a.txt的修改时间为3月20日16点</span><br></pre></td></tr></table></figure></p>
+<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><table>
+<thead>
+<tr>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mv</td>
+<td>移动或重命名文件或文件夹</td>
+</tr>
+<tr>
+<td>rm</td>
+<td>删除文件</td>
+</tr>
+<tr>
+<td>rm -f</td>
+<td>强制删除文件</td>
+</tr>
+<tr>
+<td>rm -i</td>
+<td>删除并提示确认</td>
+</tr>
+<tr>
+<td>rm -r</td>
+<td>删除文件夹以及文件夹下的所有文件</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>删除空的文件夹</td>
+</tr>
+</tbody>
+</table>
+<h1 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h1><table>
+<thead>
+<tr>
+<th>name</th>
+<th>descriptor</th>
+<th>redirect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stdin</td>
+<td>0</td>
+<td>&lt;</td>
+</tr>
+<tr>
+<td>stdout</td>
+<td>1</td>
+<td>&gt;</td>
+</tr>
+<tr>
+<td>stderr</td>
+<td>2</td>
+<td>2&gt;</td>
+</tr>
+</tbody>
+</table>
+<p>同时输出stdout和stderr</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ do_something &gt; all-output-file 2&gt;&amp;1</span><br><span class="line">or</span><br><span class="line">$ do_something &gt;&amp; all-output-file</span><br></pre></td></tr></table></figure>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><h2 id="man"><a href="#man" class="headerlink" title="man"></a>man</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">man bla //显示跟bla有关的详细信息</span><br><span class="line">man -f bla //显示bla的概要，与whatis一样</span><br><span class="line">man -k bla //显示跟bla有关的指令的概要，与apropos一样</span><br><span class="line">//man pages分成 1 - 9个章节，章节后面可带字母</span><br><span class="line">man 3 printf //显示在第3章的printf</span><br><span class="line">man -a printf //显示所有章节的printf，一章一章的展示</span><br></pre></td></tr></table></figure>
+<h2 id="info"><a href="#info" class="headerlink" title="info"></a>info</h2><p>GUN Info System<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">info blabla //显示blabla的信息</span><br></pre></td></tr></table></figure></p>
+<h2 id="help"><a href="#help" class="headerlink" title="help"></a>help</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">help // 显示当前shell内置的指令的简要使用方法</span><br><span class="line">bla -h //显示bla指令的简要帮助页，某些指令可能没有</span><br><span class="line">bla --help // 同上</span><br><span class="line">help的速度比man、info要快</span><br></pre></td></tr></table></figure>
+<h1 id="File-Operations"><a href="#File-Operations" class="headerlink" title="File Operations"></a>File Operations</h1><h2 id="FileSystems"><a href="#FileSystems" class="headerlink" title="FileSystems"></a>FileSystems</h2><h3 id="Mount-Points"><a href="#Mount-Points" class="headerlink" title="Mount Points"></a>Mount Points</h3><p>设备需要挂载到某个文件夹后才能使用，如果文件夹不为空，则挂载后不能访问原有文件，得解除挂载后才能访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda5 /home //将dev/sda5挂载到/home文件夹</span><br><span class="line">mount //显示当前挂载的文件系统</span><br><span class="line">df -Th //同上，同时显示使用情况</span><br><span class="line">/etc/fstab //修改该文件，可开机自动挂载</span><br></pre></td></tr></table></figure></p>
+<h3 id="The-Network-Filesystem"><a href="#The-Network-Filesystem" class="headerlink" title="The Network Filesystem"></a>The Network Filesystem</h3><h4 id="Server"><a href="#Server" class="headerlink" title="Server"></a>Server</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo service nfs start //start nfs service</span><br><span class="line">/etc/exports //contains the directories and permissions that a host is willing to share with other systems over NFS. </span><br><span class="line">exportfs -av //update change</span><br><span class="line">sudo service nfs restart</span><br></pre></td></tr></table></figure>
+<h4 id="Client"><a href="#Client" class="headerlink" title="Client"></a>Client</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/fstab //to modified to accomplish nfs</span><br><span class="line">servername:/projects /mnt/nfs/projects nfs defaults 0 0 //sample</span><br><span class="line">mount servername:/projects /mnt/nfs/projects //one-time mount,without reboot</span><br></pre></td></tr></table></figure>
+<h2 id="FileSystem-Architecture"><a href="#FileSystem-Architecture" class="headerlink" title="FileSystem Architecture"></a>FileSystem Architecture</h2><table>
+<thead>
+<tr>
+<th>Directory</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/</td>
+<td>root directory</td>
+</tr>
+<tr>
+<td>/home</td>
+<td>Each user has a home directory, usually placed under /home</td>
+</tr>
+<tr>
+<td>/root</td>
+<td>root user’s home directory</td>
+</tr>
+<tr>
+<td>/bin</td>
+<td>contains executable binaries, essential commands used in single-user mode, and essential commands required by all system users</td>
+</tr>
+<tr>
+<td>/sbin</td>
+<td>essential binaries related to system administration</td>
+</tr>
+<tr>
+<td>/usr/bin</td>
+<td>Commands that are not essential for the system in single-user mode</td>
+</tr>
+<tr>
+<td>/usr/sbin</td>
+<td>for less essential system administration programs</td>
+</tr>
+<tr>
+<td>/dev</td>
+<td>contains device nodes,Linux creating them dynamically when devices are found except for network devices</td>
+</tr>
+<tr>
+<td>/var</td>
+<td>contains files that are expected to change in size and content as the system is running such as the System log files: /var/log Packages and database files: /var/lib Print queues: /var/spool Temp files: /var/tmp</td>
+</tr>
+<tr>
+<td>/etc</td>
+<td>home for system configuration files</td>
+</tr>
+<tr>
+<td>/boot</td>
+<td>contains the few essential files needed to boot the system</td>
+</tr>
+<tr>
+<td>/lib</td>
+<td>contains libraries (common code shared by applications and needed for them to run) for the essential programs in /bin and /sbin</td>
+</tr>
+<tr>
+<td>/media</td>
+<td>typically located where removable media, such as CDs, DVDs and USB drives are mounted</td>
+</tr>
+<tr>
+<td>/opt</td>
+<td>Optional application software packages.</td>
+</tr>
+<tr>
+<td>/sys</td>
+<td>Virtual pseudo-filesystem giving information about the system and the hardware. Can be used to alter system parameters and for debugging purposes.</td>
+</tr>
+<tr>
+<td>/srv</td>
+<td>Site-specific data served up by the system. Seldom used.</td>
+</tr>
+<tr>
+<td>/tmp</td>
+<td>Temporary files; on some distributions erased across a reboot and/or may actually be a ramdisk in memory.</td>
+</tr>
+<tr>
+<td>/usr</td>
+<td>Multi-user applications, utilities and data.</td>
+</tr>
+<tr>
+<td>/usr/</td>
+<td>include Header files used to compile applications.</td>
+</tr>
+<tr>
+<td>/usr/lib</td>
+<td>Libraries for programs in /usr/bin and /usr/sbin.</td>
+</tr>
+<tr>
+<td>/usr/lib64</td>
+<td>64-bit libraries for 64-bit programs in /usr/bin and /usr/sbin.</td>
+</tr>
+<tr>
+<td>/usr/sbin</td>
+<td>Non-essential system binaries, such as system daemons.</td>
+</tr>
+<tr>
+<td>/usr/share</td>
+<td>Shared data used by applications, generally architecture-independent.</td>
+</tr>
+<tr>
+<td>/usr/src</td>
+<td>Source code, usually for the Linux kernel.</td>
+</tr>
+<tr>
+<td>/usr/X11R6</td>
+<td>X Window configuration files; generally obsolete.</td>
+</tr>
+<tr>
+<td>/usr/local</td>
+<td>Data and programs specific to the local machine. Subdirectories include bin, sbin, lib, share, include, etc.</td>
+</tr>
+<tr>
+<td>/usr/bin</td>
+<td>This is the primary directory of executable commands on the system.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Comparing-Files-and-File-Types"><a href="#Comparing-Files-and-File-Types" class="headerlink" title="Comparing Files and File Types"></a>Comparing Files and File Types</h2><h3 id="diff-amp-patch"><a href="#diff-amp-patch" class="headerlink" title="diff &amp; patch"></a>diff &amp; patch</h3><table>
+<thead>
+<tr>
+<th>diff Option</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>Provides a listing of differences that include 3 lines of context before and after the lines differing in content</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>Used to recursively compare subdirectories as well as the current directory</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>Ignore the case of letters</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>Ignore differences in spaces and tabs (white space)</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">diff a.txt b.txt</span><br><span class="line">diff3 MY-FILE COMMON-FILE YOUR-FILE // 3 files</span><br><span class="line">diff -Nur originalfile newfile &gt; patchfile</span><br><span class="line">diff -au filea fileb &gt; patchfile</span><br><span class="line">patch -p1 &lt; patchfile</span><br><span class="line">patch originalfile patchfile</span><br></pre></td></tr></table></figure>
+<h3 id="file-查看文件类型"><a href="#file-查看文件类型" class="headerlink" title="file 查看文件类型"></a>file 查看文件类型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file hello.c</span><br><span class="line">file a</span><br><span class="line">file hello.o</span><br></pre></td></tr></table></figure>
+<h2 id="Backing-Up-and-Compressing-Data"><a href="#Backing-Up-and-Compressing-Data" class="headerlink" title="Backing Up and Compressing Data"></a>Backing Up and Compressing Data</h2><h3 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h3><p>copies only the parts of files that have actually changed, it can be very fast than cp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rsync sourcefile destinationfile</span><br><span class="line">rsync -r sourcedir destinationdir</span><br></pre></td></tr></table></figure></p>
+<h3 id="Compressing-Data"><a href="#Compressing-Data" class="headerlink" title="Compressing Data"></a>Compressing Data</h3><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gzip</td>
+<td>The most frequently used Linux compression utility</td>
+</tr>
+<tr>
+<td>bzip2</td>
+<td>Produces files significantly smaller than those produced by gzip</td>
+</tr>
+<tr>
+<td>xz</td>
+<td>The most space efficient compression utility used in Linux</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>Is often required to examine and decompress archives from other operating systems</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gzip *</td>
+<td>Compresses all files in the current directory; each file is compressed and renamed with a .gz extension.</td>
+</tr>
+<tr>
+<td>gzip -r</td>
+<td>projectX Compresses all files in the projectX directory along with all files in all of the directories under projectX.</td>
+</tr>
+<tr>
+<td>gunzip</td>
+<td>foo De-compresses foo found in the file foo.gz. Under the hood, gunzip command is actually the same as gzip –d.</td>
+</tr>
+<tr>
+<td>bzip2 *</td>
+<td>Compress all of the files in the current directory and replaces each file with a file renamed with a .bz2 extension.</td>
+</tr>
+<tr>
+<td>bunzip2 *.bz2</td>
+<td>Decompress all of the files with an extension of .bz2 in the current directory. Under the hood, bunzip2 is the same as calling bzip2 -d.</td>
+</tr>
+<tr>
+<td>xz *</td>
+<td>Compress all of the files in the current directory and replace each file with one with a .xz extension.</td>
+</tr>
+<tr>
+<td>xz foo</td>
+<td>Compress the file foo into foo.xz using the default compression level (-6), and remove foo if compression succeeds.</td>
+</tr>
+<tr>
+<td>xz -dk bar.xz</td>
+<td>Decompress bar.xz into  bar and don’t remove bar.xz even if decompression is successful.</td>
+</tr>
+<tr>
+<td>xz -dcf a.txt b.txt.xz &gt; abcd.txt</td>
+<td>Decompress a mix of compressed and uncompressed files to standard output, using a single command.</td>
+</tr>
+<tr>
+<td>xz -d *.xz</td>
+<td>Decompress the files compressed using xz.</td>
+</tr>
+<tr>
+<td>zip backup *</td>
+<td>Compresses all files in the current directory and places them in the file backup.zip.</td>
+</tr>
+<tr>
+<td>zip -r backup.zip ~</td>
+<td>Archives your login directory (~) and all files and directories under it in the file backup.zip.</td>
+</tr>
+<tr>
+<td>unzip backup.zip</td>
+<td>Extracts all files in the file backup.zip and places them in the current directory.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tar-打包"><a href="#tar-打包" class="headerlink" title="tar 打包"></a>tar 打包</h3><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tar cf a.tar .</td>
+<td>当前文件夹下的文件打包</td>
+</tr>
+<tr>
+<td>tar cf b.tar ../tmp</td>
+<td>当前文件夹（名为tmp）下文件打包，且仍在tmp下</td>
+</tr>
+<tr>
+<td>tar tvf a.tar</td>
+<td>查看a.tar的内容</td>
+</tr>
+<tr>
+<td>tar xvf mydir.tar</td>
+<td>Extract all the files in mydir.tar into the mydir directory</td>
+</tr>
+<tr>
+<td>tar zcvf mydir.tar.gz mydir</td>
+<td>Create the archive and compress with gzip</td>
+</tr>
+<tr>
+<td>tar jcvf mydir.tar.bz2 mydir</td>
+<td>Create the archive and compress with bz2</td>
+</tr>
+<tr>
+<td>tar Jcvf mydir.tar.xz mydir</td>
+<td>Create the archive and compress with xz</td>
+</tr>
+<tr>
+<td>tar xvf mydir.tar.gz</td>
+<td>Extract all the files in mydir.tar.gz into the mydir directory. Note you do not have to tell tar it is in gzip format.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dd-Disk-to-Disk-Copying"><a href="#dd-Disk-to-Disk-Copying" class="headerlink" title="dd Disk-to-Disk Copying"></a>dd Disk-to-Disk Copying</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/sda of=sda.mbr bs=512 count=1 //将sda的前512字节拷贝到当前目录，名为sda.mbr</span><br><span class="line">dd if=/dev/sda of=/dev/sdb //将sda拷贝到sdb，会清空sdb原有文件！</span><br><span class="line">dd if=filea of=fileb conv=ucase //将filea拷贝到fileb,同时将小写转为大写</span><br></pre></td></tr></table></figure>
+<h1 id="USER-ENVIRONMENT"><a href="#USER-ENVIRONMENT" class="headerlink" title="USER ENVIRONMENT"></a>USER ENVIRONMENT</h1><h2 id="识别用户"><a href="#识别用户" class="headerlink" title="识别用户"></a>识别用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">who //显示当前登陆用户</span><br><span class="line">whoami //显示当前用户</span><br></pre></td></tr></table></figure>
+<h2 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo useradd candy //添加用户candy</span><br><span class="line">//设置其主目录为/home/candy，基础文件拷贝自/etc/skel，在/etc/passwd添加一行描述</span><br><span class="line">//设置默认shell为/bin/bash</span><br><span class="line">sudo userdel candy //删除用户candy</span><br><span class="line">//删除用户为上面的反操作，但是不会删除其主目录，添加-r会删除主目录</span><br></pre></td></tr></table></figure>
+<h2 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd username //passwd属于SUID(Set owner User ID upon execution)命令，即用户修改自己密码时该命令不需要root权限</span><br></pre></td></tr></table></figure>
+<h2 id="添加组"><a href="#添加组" class="headerlink" title="添加组"></a>添加组</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd lo //添加组，名为lo</span><br><span class="line">sudo groupdel lo //删除</span><br><span class="line">groups candy //查看candy的分组</span><br><span class="line">sudo usermod -G lo candy //添加candy至组lo</span><br><span class="line">//不能将candy直接从lo组移除，需要用上面的语句从新设置candy的分组</span><br></pre></td></tr></table></figure>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>~/.bashrc //新打开的shell会从此读取配置信息，如环境变量，别名等</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">set //显示变量，很多</span><br><span class="line">env </span><br><span class="line">export</span><br><span class="line">echo $SHELL //SHELL是一个变量，用$可以读取变量内容，用echo将其显示</span><br><span class="line">export VARIABLE=value //设置VARIABLE的值，并声明为环境变量</span><br><span class="line">VARIABLE=value; export VARIABLE //同上</span><br><span class="line">//注意&apos;=&apos;两边不能有空格</span><br><span class="line">新设置的变量在bash关闭后自动丢弃，要设置永久变量</span><br><span class="line">需要在~/.bashrc后面添加一行该变量的声明语句</span><br><span class="line">source ~/.bashrc //立即使用刚刚设置的变量，不用新开bash</span><br><span class="line">. ~/.bashrc //同上</span><br></pre></td></tr></table></figure>
+<h3 id="主目录-HOME"><a href="#主目录-HOME" class="headerlink" title="主目录 $HOME"></a>主目录 $HOME</h3><h3 id="路径-PATH"><a href="#路径-PATH" class="headerlink" title="路径 $PATH"></a>路径 $PATH</h3><p>PATH中包含一些路径，路径间用:分开，中间含有一个空的路径（或.）表示当前路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$HOME/bin:$PATH //添加主目录的bin到PATH前面</span><br></pre></td></tr></table></figure></p>
+<h3 id="提示语句-PS1"><a href="#提示语句-PS1" class="headerlink" title="提示语句 PS1"></a>提示语句 PS1</h3><p>PS1是命令行起始地那段提示语，可以修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">\u - User name </span><br><span class="line">\h - Host name </span><br><span class="line">\w - Current working directory </span><br><span class="line">\! - History number of this command </span><br><span class="line">\d - Date</span><br><span class="line">PS1=&apos;\u \w \d &apos; //显示“用户名 当前目录 日期 ”</span><br></pre></td></tr></table></figure></p>
+<h2 id="命令历史"><a href="#命令历史" class="headerlink" title="命令历史"></a>命令历史</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">键盘向上箭头 //上一条语句</span><br><span class="line">向下箭头 //下一条语句</span><br><span class="line">history //显示命令历史，存在~/.bash_history下</span><br><span class="line">变量：</span><br><span class="line">HISTFILE //历史文件的存储地址</span><br><span class="line">HISTFILESIZE //最大历史文件大小（行数） </span><br><span class="line">HISTSIZE //最大当前执行期历史大小（行数）</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>key</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>!!</td>
+<td>执行上条语句</td>
+</tr>
+<tr>
+<td>CTRL-R</td>
+<td>查找执行过的语句</td>
+</tr>
+<tr>
+<td>!n</td>
+<td>执行第n条指令（n对应history的行数）</td>
+</tr>
+<tr>
+<td>!$</td>
+<td>上条指令的最后一个参数</td>
+</tr>
+<tr>
+<td>!string</td>
+<td>上一条起始为string的指令</td>
+</tr>
+<tr>
+<td>CTRL-L</td>
+<td>清空屏幕</td>
+</tr>
+<tr>
+<td>CTRL-Z</td>
+<td>将当前进程放到后台挂起</td>
+</tr>
+<tr>
+<td>CTRL-C</td>
+<td>强制结束当前进程</td>
+</tr>
+<tr>
+<td>CTRL-A</td>
+<td>移到行首</td>
+</tr>
+<tr>
+<td>CTRL-W</td>
+<td>删除光标前的所有文字</td>
+</tr>
+<tr>
+<td>CTRL-U</td>
+<td>删除行首到光标间的文字</td>
+</tr>
+<tr>
+<td>CTRL-E</td>
+<td>移到行尾</td>
+</tr>
+<tr>
+<td>TAB</td>
+<td>自动补完命令，目录等</td>
+</tr>
+</tbody>
+</table>
+<h2 id="命令别名"><a href="#命令别名" class="headerlink" title="命令别名"></a>命令别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alias xx=&apos;ls -l&apos; //为ls -l取别名xx，输入xx等于输入ls -l</span><br><span class="line">//别名只是暂时的，关闭窗口自动消失</span><br><span class="line">//取永久别名可以在~/.bashrc声明别名</span><br></pre></td></tr></table></figure>
+<h2 id="文件权限"><a href="#文件权限" class="headerlink" title="文件权限"></a>文件权限</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown root file1  //修改file1的owner为root</span><br><span class="line">sudo chgrp bin file1 //修改file1的group为bin</span><br></pre></td></tr></table></figure>
+<p>权限分为 r 可读、w 可写、x 可执行,同时分别对应 user group other<br>如-rw-rw-r– //-表示不可<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rwx:rwx:rwx</span><br><span class="line"> u:  g:  o  //可用u、g、o表示三种类型</span><br><span class="line"> chmod uo+x,g-w testf //修改testf的权限，用户以及其他用户添加可执行，组减去可写</span><br></pre></td></tr></table></figure></p>
+<p>用数字表示对应的权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4 可读</span><br><span class="line">2 可写</span><br><span class="line">1 可执行</span><br></pre></td></tr></table></figure></p>
+<p>因此5对应4+1即可读可执行，7对应rwx等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 700 testf //修改testf为用户可读可写可执行，组以及其他用户都不行</span><br><span class="line">//注意数字仍然分3位对应3中类型</span><br></pre></td></tr></table></figure></p>
+<h1 id="su-切换用户，不提倡使用"><a href="#su-切换用户，不提倡使用" class="headerlink" title="su 切换用户，不提倡使用"></a>su 切换用户，不提倡使用</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su candy //切换到用户candy</span><br><span class="line">su //切换到root</span><br></pre></td></tr></table></figure>
+<h1 id="sudo-临时使用root权限"><a href="#sudo-临时使用root权限" class="headerlink" title="sudo 临时使用root权限"></a>sudo 临时使用root权限</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ubuntu安装时自动设置</span><br><span class="line">手动设置：</span><br><span class="line">su //接着输入root密码</span><br><span class="line">echo &quot;username ALL=(ALL) ALL&quot; &gt; /etc/sudoers.d/username //设置配置文件</span><br><span class="line">chmod 440 /etc/sudoers.d/username //修改配置文件的权限</span><br><span class="line">需要root的权限的操作只需在操作前添加sudo 即可</span><br></pre></td></tr></table></figure>
+<h1 id="关机，重启"><a href="#关机，重启" class="headerlink" title="关机，重启"></a>关机，重启</h1><h2 id="shutdown-关机，重启-root"><a href="#shutdown-关机，重启-root" class="headerlink" title="shutdown 关机，重启 (root)"></a>shutdown 关机，重启 (root)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shutdown -h now //立即关机</span><br><span class="line">shutdown -r now //立即重启</span><br><span class="line">shutdown -h 10:00 &quot;shutting down for a break.&quot; //10:00关机，同时给其他用户发送通知</span><br></pre></td></tr></table></figure>
+<h2 id="halt-关机-root"><a href="#halt-关机-root" class="headerlink" title="halt 关机(root)"></a>halt 关机(root)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">halt</span><br></pre></td></tr></table></figure>
+<h2 id="poweroff-关机-root"><a href="#poweroff-关机-root" class="headerlink" title="poweroff 关机(root)"></a>poweroff 关机(root)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">poweroff</span><br></pre></td></tr></table></figure>
+<h2 id="init-0-关机-root"><a href="#init-0-关机-root" class="headerlink" title="init 0 关机(root)"></a>init 0 关机(root)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init 0</span><br></pre></td></tr></table></figure>
+<h2 id="关闭图形界面"><a href="#关闭图形界面" class="headerlink" title="关闭图形界面"></a>关闭图形界面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service gdm stop // 关闭图形界面，Debian-based systems</span><br><span class="line">sudo service lightdm stop //同上</span><br><span class="line">sudo telinit 3 // RPM-based systems</span><br></pre></td></tr></table></figure>
+<h1 id="安装应用程序"><a href="#安装应用程序" class="headerlink" title="安装应用程序"></a>安装应用程序</h1><table>
+<thead>
+<tr>
+<th>package Manager</th>
+<th>Low Level</th>
+<th>High Level</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Debian</td>
+<td>dpkg</td>
+<td>apt-get</td>
+</tr>
+<tr>
+<td>SUSE</td>
+<td>rpm</td>
+<td>zypper</td>
+</tr>
+<tr>
+<td>Fedora</td>
+<td>rpm</td>
+<td>yum</td>
+</tr>
+</tbody>
+</table>
+<p>Debian<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-cache search lynx //查找名为lynx的程序</span><br><span class="line">sudo apt-get install lynx //安装</span><br><span class="line">sudo apt-get policy lynx //查找信息</span><br><span class="line">sudo apt-get remove lynx //删除</span><br><span class="line">sudo dpkg -l //查找所有已安装程序</span><br><span class="line">sudo apt-get upgrade //升级程序</span><br></pre></td></tr></table></figure></p>
+<p>yum/zypper<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo yum/zypper search lynx //yum for Fedora, zypper for SUSE</span><br><span class="line">sudo yum/zypper install lynx</span><br><span class="line">sudo yum/zypper info lynx</span><br><span class="line">sudo yum/zypper remove lynx</span><br><span class="line">sudo yum/zypper list install</span><br><span class="line">sudo rpm -qa //同上</span><br><span class="line">sudo yum/zypper update</span><br></pre></td></tr></table></figure></p>
+<h1 id="程序定位"><a href="#程序定位" class="headerlink" title="程序定位"></a>程序定位</h1><h2 id="which"><a href="#which" class="headerlink" title="which"></a>which</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">which diff //显示diff的地址</span><br></pre></td></tr></table></figure>
+<h2 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis diff //显示diff的地址（查找范围更广）</span><br></pre></td></tr></table></figure>
+<h1 id="文本操作"><a href="#文本操作" class="headerlink" title="文本操作"></a>文本操作</h1><h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo hello &gt; hello //把hello写入hello文件（替换掉原有内容）</span><br><span class="line">echo helloo &gt;&gt; hello //在hello文件后面添加helloo</span><br><span class="line">echo -e string\nstring // -e可以识别转义字符</span><br></pre></td></tr></table></figure>
+<h2 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat hello //查看hello</span><br><span class="line">cat file1 file2 file3 // 可以同时查看多个文件（连接多个文件）</span><br><span class="line">cat &gt; hello //写入新内容到hello</span><br><span class="line">blah blah </span><br><span class="line">blah</span><br><span class="line">[CTRL-D] //写入blah blah\nblah， 按ctrl-d会保存到文件</span><br><span class="line">cat &lt;&lt; EOF &gt; hello //连续写入内容到hello，直到输入EOF（EOF不会被写入）</span><br><span class="line">&gt; a</span><br><span class="line">&gt; ab</span><br><span class="line">&gt; EOF</span><br><span class="line"></span><br><span class="line">cat &lt;&lt; a &gt; hello //同上，输入a截止</span><br><span class="line">&gt; b</span><br><span class="line">&gt; bc</span><br><span class="line">&gt; a</span><br></pre></td></tr></table></figure>
+<h2 id="nano"><a href="#nano" class="headerlink" title="nano"></a>nano</h2><p>简单的编辑器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nano hello //编辑hello</span><br></pre></td></tr></table></figure></p>
+<h2 id="gedit"><a href="#gedit" class="headerlink" title="gedit"></a>gedit</h2><p>图形化编辑器，类似notepad<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit hello // 编辑hello</span><br></pre></td></tr></table></figure></p>
+<h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><p>(vi升级版，现vi已被vim取代)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim hello //编辑hello</span><br><span class="line">vimtutor //vim使用指导，有中文版，建议跟着练习，可能花费1小时左右</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>Command / key</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vi myfile</td>
+<td>Start the vi editor and edit the myfile file </td>
+</tr>
+<tr>
+<td>vi -r myfile</td>
+<td>Start vi and edit myfile in recovery mode from a system crash </td>
+</tr>
+<tr>
+<td>:r file2</td>
+<td>Read in file2 and insert at current position </td>
+</tr>
+<tr>
+<td>:w</td>
+<td>Write to the file </td>
+</tr>
+<tr>
+<td>:w myfile</td>
+<td>Write out the file to myfile </td>
+</tr>
+<tr>
+<td>:w! file2</td>
+<td>Overwrite file2 </td>
+</tr>
+<tr>
+<td>:x or :wq</td>
+<td>Exit vi and write out modified file </td>
+</tr>
+<tr>
+<td>:q</td>
+<td>Quit vi </td>
+</tr>
+<tr>
+<td>:q!</td>
+<td>Quit vi even though modifications have not been saved </td>
+</tr>
+<tr>
+<td>arrow keys</td>
+<td>To move up, down, left and right </td>
+</tr>
+<tr>
+<td>j or <ret></ret></td>
+<td>To move one line down </td>
+</tr>
+<tr>
+<td>k</td>
+<td>To move one line up </td>
+</tr>
+<tr>
+<td>h or Backspace</td>
+<td>To move one character left </td>
+</tr>
+<tr>
+<td>l or Space</td>
+<td>To move one character right </td>
+</tr>
+<tr>
+<td>0</td>
+<td>To move to beginning of line </td>
+</tr>
+<tr>
+<td>$</td>
+<td>To move to end of line </td>
+</tr>
+<tr>
+<td>w</td>
+<td>To move to beginning of next word </td>
+</tr>
+<tr>
+<td>e</td>
+<td>To move to the end of next word</td>
+</tr>
+<tr>
+<td>:0 or 1G</td>
+<td>To move to beginning of file </td>
+</tr>
+<tr>
+<td>:n or nG</td>
+<td>To move to line n </td>
+</tr>
+<tr>
+<td>:$ or G</td>
+<td>To move to last line in file </td>
+</tr>
+<tr>
+<td>CTRL-F or Page Down</td>
+<td>To move forward one page </td>
+</tr>
+<tr>
+<td>CTRL-B or Page Up</td>
+<td>To move backward one page </td>
+</tr>
+<tr>
+<td>^l</td>
+<td>To refresh and center screen </td>
+</tr>
+<tr>
+<td>/pattern</td>
+<td>Search forward for pattern </td>
+</tr>
+<tr>
+<td>?pattern</td>
+<td>Search backward for pattern </td>
+</tr>
+<tr>
+<td>n</td>
+<td>Move to next occurrence of search pattern </td>
+</tr>
+<tr>
+<td>N</td>
+<td>Move to previous occurrence of search pattern </td>
+</tr>
+<tr>
+<td>a</td>
+<td>Append text after cursor; stop upon Escape key </td>
+</tr>
+<tr>
+<td>A</td>
+<td>Append text at end of current line; stop upon Escape key </td>
+</tr>
+<tr>
+<td>i</td>
+<td>Insert text before cursor; stop upon Escape key </td>
+</tr>
+<tr>
+<td>I</td>
+<td>Insert text at beginning of current line; stop upon Escape key </td>
+</tr>
+<tr>
+<td>o</td>
+<td>Start a new line below current line, insert text there; stop upon Escape key </td>
+</tr>
+<tr>
+<td>O</td>
+<td>Start a new line above current line, insert text there; stop upon Escape key </td>
+</tr>
+<tr>
+<td>r</td>
+<td>Replace character at current position </td>
+</tr>
+<tr>
+<td>R</td>
+<td>Replace text starting with current position; stop upon Escape key </td>
+</tr>
+<tr>
+<td>x</td>
+<td>Delete character at current position </td>
+</tr>
+<tr>
+<td>Nx</td>
+<td>Delete N characters, starting at current position </td>
+</tr>
+<tr>
+<td>dw</td>
+<td>Delete the word at the current position </td>
+</tr>
+<tr>
+<td>D</td>
+<td>Delete the rest of the current line </td>
+</tr>
+<tr>
+<td>dd</td>
+<td>Delete the current line </td>
+</tr>
+<tr>
+<td>Ndd or dNd</td>
+<td>Delete N lines </td>
+</tr>
+<tr>
+<td>u</td>
+<td>Undo the previous operation </td>
+</tr>
+<tr>
+<td>yy</td>
+<td>Yank (copy) the current line and put it in buffer </td>
+</tr>
+<tr>
+<td>Nyy or yNy</td>
+<td>Yank (copy) N lines and put it in buffer </td>
+</tr>
+<tr>
+<td>p</td>
+<td>Paste at the current position the yanked line or lines from the buffer. </td>
+</tr>
+</tbody>
+</table>
+<p>##ALL READ AND NO LAB MAKES JACK A BOY CAN’T USE VIM</p>
+<h2 id="sed-多文本操作"><a href="#sed-多文本操作" class="headerlink" title="sed 多文本操作"></a>sed 多文本操作</h2><p>sed 默认将结果输出到屏幕</p>
+<table>
+<thead>
+<tr>
+<th>command</th>
+<th>usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sed -e command <filename></filename></td>
+<td>Specify editing commands at the command line, operate on file and put the output on standard out (e.g., the terminal) </td>
+</tr>
+<tr>
+<td>sed -f scriptfile <filename></filename></td>
+<td>Specify a scriptfile containing sed commands, operate on file and put output on standard out. </td>
+</tr>
+<tr>
+<td>sed s/pattern/replace_string/ file</td>
+<td>替换掉第一行的第一个pattern为replace_string </td>
+</tr>
+<tr>
+<td>sed s/pattern/replace_string/g file</td>
+<td>替换掉整行的pattern </td>
+</tr>
+<tr>
+<td>sed 1,3s/pattern/replace_string/g file</td>
+<td>替换掉指定范围行 </td>
+</tr>
+<tr>
+<td>sed -i s/pattern/replace_string/g file</td>
+<td>保存到原文件，不提倡</td>
+</tr>
+<tr>
+<td>sed s/pattern/replace_string/g file1 &gt; file2</td>
+<td>保存到指定文件</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sed -e &apos;s/01/JAN/&apos; -e &apos;s/02/FEB/&apos; -e &apos;s/03/MAR/&apos; -e &apos;s/04/APR/&apos; -e &apos;s/05/MAY/&apos; \ </span><br><span class="line">-e &apos;s/06/JUN/&apos; -e &apos;s/07/JUL/&apos; -e &apos;s/08/AUG/&apos; -e &apos;s/09/SEP/&apos; -e &apos;s/10/OCT/&apos; \</span><br><span class="line">-e &apos;s/11/NOV/&apos; -e &apos;s/12/DEC/&apos; file //To convert 01/02/… to JAN/FEB/… from file</span><br><span class="line"></span><br><span class="line">sed s/is/are/ file //把file第一行第一个is换为are</span><br><span class="line">sed s/is/are/g file //把第一行所有is换位are</span><br><span class="line">sed s/is/are/g file1 file2 //多文件同时操作</span><br></pre></td></tr></table></figure>
+<h2 id="awk-提取内容"><a href="#awk-提取内容" class="headerlink" title="awk 提取内容"></a>awk 提取内容</h2><ul>
+<li>It is a powerful utility and interpreted programming language.</li>
+<li>It is used to manipulate data files, retrieving, and processing text.</li>
+<li>It works well with fields (containing a single piece of data, essentially a column) and records (a collection of fields, essentially a line in a file).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>awk ‘command’ var=value file</td>
+<td>Specify a command directly at the command line </td>
+</tr>
+<tr>
+<td>awk -f scriptfile var=value file</td>
+<td>Specify a file that contains the script to be executed along with f </td>
+</tr>
+<tr>
+<td>awk ‘{ print $0 }’ /etc/passwd</td>
+<td>Print entire file of /etc/passwd </td>
+</tr>
+<tr>
+<td>awk -F: ‘{ print $1 }’ /etc/passwd</td>
+<td>Print first field (column) of every line, separated by a space </td>
+</tr>
+<tr>
+<td>awk -F: ‘{ print $1 $6 }’ /etc/passwd</td>
+<td>Print first and sixth field of every line </td>
+</tr>
+</tbody>
+</table>
+<h1 id="File-Manipulation-Utilities"><a href="#File-Manipulation-Utilities" class="headerlink" title="File Manipulation Utilities"></a>File Manipulation Utilities</h1><h2 id="sort-排序"><a href="#sort-排序" class="headerlink" title="sort 排序"></a>sort 排序</h2><p>sort默认安装ASCII字符排序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort file </span><br><span class="line">sort -r file // 逆序</span><br><span class="line">sort -u file // 排序，同时去除重复</span><br></pre></td></tr></table></figure></p>
+<h2 id="uniq-去重"><a href="#uniq-去重" class="headerlink" title="uniq 去重"></a>uniq 去重</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sort file | uniq // same as sort -u file</span><br><span class="line">uniq file</span><br><span class="line">uniq -c file // 同时输出重复字数</span><br></pre></td></tr></table></figure>
+<h2 id="paste-黏贴"><a href="#paste-黏贴" class="headerlink" title="paste 黏贴"></a>paste 黏贴</h2><p>可将两文件并排合并<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">假如有文件name</span><br><span class="line">bob</span><br><span class="line">alice</span><br><span class="line">文件phone</span><br><span class="line">110</span><br><span class="line">120</span><br><span class="line">执行：</span><br><span class="line">paste name phone</span><br><span class="line">将得到</span><br><span class="line">bob    110</span><br><span class="line">alice    120</span><br><span class="line">paste -d &apos;:&apos; name phone //指定分隔符为&apos;:&apos;，默认为&apos;\t&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="join-连接"><a href="#join-连接" class="headerlink" title="join 连接"></a>join 连接</h2><p>相当于等值连接，必须要有一列值相同<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">承接上面</span><br><span class="line">paste name phone &gt; contact</span><br><span class="line">假设有文件addr</span><br><span class="line">bob somewhere</span><br><span class="line">alice anywhere</span><br><span class="line"></span><br><span class="line">join contact addr</span><br><span class="line">将得到：</span><br><span class="line">bob 110 somewhere</span><br><span class="line">alice 120 anywhere</span><br></pre></td></tr></table></figure></p>
+<h2 id="split-分割"><a href="#split-分割" class="headerlink" title="split 分割"></a>split 分割</h2><p>默认将大文件分割为多个1000行的小文件，默认小文件为原文件名后加后缀<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wc -l american-english //查看有多少行</span><br><span class="line">split american-english dictionary // 将american-english 分为多个名为dictionary加后缀的小文件</span><br></pre></td></tr></table></figure></p>
+<h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><table>
+<thead>
+<tr>
+<th>Search Patterns</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.(dot)</td>
+<td>Match any single character </td>
+</tr>
+<tr>
+<td>a</td>
+<td>z</td>
+<td>Match a or z </td>
+</tr>
+<tr>
+<td>$</td>
+<td>Match end of string </td>
+</tr>
+<tr>
+<td>*</td>
+<td>Match preceding item 0 or more times </td>
+</tr>
+</tbody>
+</table>
+<p>example</p>
+<p>the quick brown fox jumped over the lazy dog</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a..</td>
+<td>matches azy  </td>
+</tr>
+<tr>
+<td>b.</td>
+<td>j.</td>
+<td>matches both br and ju </td>
+</tr>
+<tr>
+<td>..$</td>
+<td>matches og </td>
+</tr>
+<tr>
+<td>l.*</td>
+<td>matches lazy dog </td>
+</tr>
+<tr>
+<td>l.*y</td>
+<td>matches lazy </td>
+</tr>
+<tr>
+<td>the.*</td>
+<td>matches the whole sentence </td>
+</tr>
+</tbody>
+</table>
+<h1 id="Security"><a href="#Security" class="headerlink" title="Security"></a>Security</h1><h2 id="last-每个账户上次（包含正在登陆的）登陆的时间"><a href="#last-每个账户上次（包含正在登陆的）登陆的时间" class="headerlink" title="last 每个账户上次（包含正在登陆的）登陆的时间"></a>last 每个账户上次（包含正在登陆的）登陆的时间</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">last</span><br></pre></td></tr></table></figure>
+<h2 id="root"><a href="#root" class="headerlink" title="root"></a>root</h2><p>root 账户拥有最高的权限，当以root用户登录时，shell提示符为 # (默认情况下)<br>root权限通常用于</p>
+<ul>
+<li>Creating, removing and managing user accounts.</li>
+<li>Managing software packages.</li>
+<li>Removing or modifying system files.</li>
+<li>Restarting system services.</li>
+</ul>
+<h2 id="su-与-sudo"><a href="#su-与-sudo" class="headerlink" title="su 与 sudo"></a>su 与 sudo</h2><p>su可切换至root账户，需要root的密码<br>sudo可临时使用root权限，需要用户自己的密码，仅限在/etc/sudoers or /etc/sudoers.d/ 下定义的用户<br>当使用sudo或者使用失败时，记录会保存在/var/log/secure (Debian) 或者 /var/log/messages or /var/log/secure<br>编辑sudoers文件可用visudo命令，基本结构为：<br>who where = (as_whom) what</p>
+<h2 id="password-密码"><a href="#password-密码" class="headerlink" title="password 密码"></a>password 密码</h2><p>用户密码存放在/etc/shadow，访问该文件需要root权限<br>/etc/shadow不存放明文密码，该密码通常用SHA-512(Secure Hashing Algorithm 512 bits,  developed by the U.S. National Security Agency (NSA) )算法得到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -n test | sha512sum // 获得字符串test的sha512算法加密后的密文</span><br></pre></td></tr></table></figure></p>
+<h3 id="chage-用来规划用户密码，比如密码过期时间，多久要修改密码等"><a href="#chage-用来规划用户密码，比如密码过期时间，多久要修改密码等" class="headerlink" title="chage 用来规划用户密码，比如密码过期时间，多久要修改密码等"></a>chage 用来规划用户密码，比如密码过期时间，多久要修改密码等</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chage --list username //显示用户的密码规划</span><br></pre></td></tr></table></figure>
+<h3 id="PAM-Pluggable-Authentication-Modules-用来增强passwd命令"><a href="#PAM-Pluggable-Authentication-Modules-用来增强passwd命令" class="headerlink" title="PAM (Pluggable Authentication Modules) 用来增强passwd命令"></a>PAM (Pluggable Authentication Modules) 用来增强passwd命令</h3><h2 id="boot-loader"><a href="#boot-loader" class="headerlink" title="boot loader"></a>boot loader</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub-md5-crypt  //用md5加密</span><br></pre></td></tr></table></figure>
+<p>修改grub2的配置时，不应手动修改/boot/grub/grub/cfg，而应修改/etc/grub.d下的文件然后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update-grub</span><br></pre></td></tr></table></figure></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/linux/">linux</a><a href="/tags/ubuntu/">ubuntu</a><a href="/tags/command/">command</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/introduction/">introduction</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://kohit.github.io/2019/05/21/basic-commands-of-linux/" data-title="Basic commands of linux | kohit&#39;s blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2019/05/21/Create-new-Post-in-Hexo/" title="Create new Post in Hexo">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Create new Post in Hexo</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2018/07/17/regex/"  title="regex">
+ <strong>NEXT:</strong><br/> 
+ <span>regex
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Exploring-the-Filesystem"><span class="toc-number">1.</span> <span class="toc-text">Exploring the Filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#cd"><span class="toc-number">1.1.</span> <span class="toc-text">cd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ls"><span class="toc-number">1.2.</span> <span class="toc-text">ls</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tree"><span class="toc-number">1.3.</span> <span class="toc-text">tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mkdir"><span class="toc-number">1.4.</span> <span class="toc-text">mkdir</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rm-r"><span class="toc-number">1.5.</span> <span class="toc-text">rm -r</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ln"><span class="toc-number">1.6.</span> <span class="toc-text">ln</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pushd"><span class="toc-number">1.7.</span> <span class="toc-text">pushd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#popd"><span class="toc-number">1.8.</span> <span class="toc-text">popd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dirs"><span class="toc-number">1.9.</span> <span class="toc-text">dirs</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Searching-for-Files"><span class="toc-number">2.</span> <span class="toc-text">Searching for Files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#locate"><span class="toc-number">2.1.</span> <span class="toc-text">locate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通配符Wildcard"><span class="toc-number">2.2.</span> <span class="toc-text">通配符Wildcard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#find"><span class="toc-number">2.3.</span> <span class="toc-text">find</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#working-with-files"><span class="toc-number">3.</span> <span class="toc-text">working with files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#viewing-files"><span class="toc-number">3.1.</span> <span class="toc-text">viewing files</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#touch"><span class="toc-number">3.2.</span> <span class="toc-text">touch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除文件"><span class="toc-number">3.3.</span> <span class="toc-text">删除文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IO"><span class="toc-number">4.</span> <span class="toc-text">IO</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文档"><span class="toc-number">5.</span> <span class="toc-text">参考文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#man"><span class="toc-number">5.1.</span> <span class="toc-text">man</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#info"><span class="toc-number">5.2.</span> <span class="toc-text">info</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#help"><span class="toc-number">5.3.</span> <span class="toc-text">help</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-Operations"><span class="toc-number">6.</span> <span class="toc-text">File Operations</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FileSystems"><span class="toc-number">6.1.</span> <span class="toc-text">FileSystems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Mount-Points"><span class="toc-number">6.1.1.</span> <span class="toc-text">Mount Points</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-Network-Filesystem"><span class="toc-number">6.1.2.</span> <span class="toc-text">The Network Filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Server"><span class="toc-number">6.1.2.1.</span> <span class="toc-text">Server</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Client"><span class="toc-number">6.1.2.2.</span> <span class="toc-text">Client</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FileSystem-Architecture"><span class="toc-number">6.2.</span> <span class="toc-text">FileSystem Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Comparing-Files-and-File-Types"><span class="toc-number">6.3.</span> <span class="toc-text">Comparing Files and File Types</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#diff-amp-patch"><span class="toc-number">6.3.1.</span> <span class="toc-text">diff & patch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#file-查看文件类型"><span class="toc-number">6.3.2.</span> <span class="toc-text">file 查看文件类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backing-Up-and-Compressing-Data"><span class="toc-number">6.4.</span> <span class="toc-text">Backing Up and Compressing Data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rsync"><span class="toc-number">6.4.1.</span> <span class="toc-text">rsync</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Compressing-Data"><span class="toc-number">6.4.2.</span> <span class="toc-text">Compressing Data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tar-打包"><span class="toc-number">6.4.3.</span> <span class="toc-text">tar 打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dd-Disk-to-Disk-Copying"><span class="toc-number">6.4.4.</span> <span class="toc-text">dd Disk-to-Disk Copying</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#USER-ENVIRONMENT"><span class="toc-number">7.</span> <span class="toc-text">USER ENVIRONMENT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#识别用户"><span class="toc-number">7.1.</span> <span class="toc-text">识别用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加用户"><span class="toc-number">7.2.</span> <span class="toc-text">添加用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改用户密码"><span class="toc-number">7.3.</span> <span class="toc-text">修改用户密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加组"><span class="toc-number">7.4.</span> <span class="toc-text">添加组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件"><span class="toc-number">7.5.</span> <span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境变量"><span class="toc-number">7.6.</span> <span class="toc-text">环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主目录-HOME"><span class="toc-number">7.6.1.</span> <span class="toc-text">主目录 $HOME</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#路径-PATH"><span class="toc-number">7.6.2.</span> <span class="toc-text">路径 $PATH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#提示语句-PS1"><span class="toc-number">7.6.3.</span> <span class="toc-text">提示语句 PS1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令历史"><span class="toc-number">7.7.</span> <span class="toc-text">命令历史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令别名"><span class="toc-number">7.8.</span> <span class="toc-text">命令别名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件权限"><span class="toc-number">7.9.</span> <span class="toc-text">文件权限</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#su-切换用户，不提倡使用"><span class="toc-number">8.</span> <span class="toc-text">su 切换用户，不提倡使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sudo-临时使用root权限"><span class="toc-number">9.</span> <span class="toc-text">sudo 临时使用root权限</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关机，重启"><span class="toc-number">10.</span> <span class="toc-text">关机，重启</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#shutdown-关机，重启-root"><span class="toc-number">10.1.</span> <span class="toc-text">shutdown 关机，重启 (root)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#halt-关机-root"><span class="toc-number">10.2.</span> <span class="toc-text">halt 关机(root)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poweroff-关机-root"><span class="toc-number">10.3.</span> <span class="toc-text">poweroff 关机(root)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#init-0-关机-root"><span class="toc-number">10.4.</span> <span class="toc-text">init 0 关机(root)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关闭图形界面"><span class="toc-number">10.5.</span> <span class="toc-text">关闭图形界面</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装应用程序"><span class="toc-number">11.</span> <span class="toc-text">安装应用程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#程序定位"><span class="toc-number">12.</span> <span class="toc-text">程序定位</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#which"><span class="toc-number">12.1.</span> <span class="toc-text">which</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#whereis"><span class="toc-number">12.2.</span> <span class="toc-text">whereis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文本操作"><span class="toc-number">13.</span> <span class="toc-text">文本操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#echo"><span class="toc-number">13.1.</span> <span class="toc-text">echo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cat"><span class="toc-number">13.2.</span> <span class="toc-text">cat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nano"><span class="toc-number">13.3.</span> <span class="toc-text">nano</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gedit"><span class="toc-number">13.4.</span> <span class="toc-text">gedit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim"><span class="toc-number">13.5.</span> <span class="toc-text">vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sed-多文本操作"><span class="toc-number">13.6.</span> <span class="toc-text">sed 多文本操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#awk-提取内容"><span class="toc-number">13.7.</span> <span class="toc-text">awk 提取内容</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-Manipulation-Utilities"><span class="toc-number">14.</span> <span class="toc-text">File Manipulation Utilities</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sort-排序"><span class="toc-number">14.1.</span> <span class="toc-text">sort 排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uniq-去重"><span class="toc-number">14.2.</span> <span class="toc-text">uniq 去重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#paste-黏贴"><span class="toc-number">14.3.</span> <span class="toc-text">paste 黏贴</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#join-连接"><span class="toc-number">14.4.</span> <span class="toc-text">join 连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#split-分割"><span class="toc-number">14.5.</span> <span class="toc-text">split 分割</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#正则表达式"><span class="toc-number">15.</span> <span class="toc-text">正则表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Security"><span class="toc-number">16.</span> <span class="toc-text">Security</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#last-每个账户上次（包含正在登陆的）登陆的时间"><span class="toc-number">16.1.</span> <span class="toc-text">last 每个账户上次（包含正在登陆的）登陆的时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#root"><span class="toc-number">16.2.</span> <span class="toc-text">root</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#su-与-sudo"><span class="toc-number">16.3.</span> <span class="toc-text">su 与 sudo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#password-密码"><span class="toc-number">16.4.</span> <span class="toc-text">password 密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#chage-用来规划用户密码，比如密码过期时间，多久要修改密码等"><span class="toc-number">16.4.1.</span> <span class="toc-text">chage 用来规划用户密码，比如密码过期时间，多久要修改密码等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PAM-Pluggable-Authentication-Modules-用来增强passwd命令"><span class="toc-number">16.4.2.</span> <span class="toc-text">PAM (Pluggable Authentication Modules) 用来增强passwd命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#boot-loader"><span class="toc-number">16.5.</span> <span class="toc-text">boot loader</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Command-Alogorithm/" title="Command Alogorithm">Command Alogorithm<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Computer-Network/" title="Computer Network">Computer Network<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Machine-Learning/" title="Machine Learning">Machine Learning<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Mathematics/" title="Mathematics">Mathematics<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Command-Alogorithm/Transcode/" title="Transcode">Transcode<sup>1</sup></a></li>
+		
+			<li><a href="/categories/introduction/" title="introduction">introduction<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Client-Server/" title="Client-Server">Client-Server<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Combination/" title="Combination">Combination<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Computer-Network/" title="Computer Network">Computer Network<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Computer-Science/" title="Computer Science">Computer Science<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/MD5/" title="MD5">MD5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Machine-Learning/" title="Machine Learning">Machine Learning<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Mathematics/" title="Mathematics">Mathematics<sup>2</sup></a></li>
+		
+			<li><a href="/tags/NAT/" title="NAT">NAT<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/tags/P2P/" title="P2P">P2P<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Permutation/" title="Permutation">Permutation<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+			<li><a href="/tags/boost/" title="boost">boost<sup>1</sup></a></li>
+		
+			<li><a href="/tags/caffe/" title="caffe">caffe<sup>1</sup></a></li>
+		
+			<li><a href="/tags/command/" title="command">command<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cpp/" title="cpp">cpp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li><a href="/tags/mongo/" title="mongo">mongo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/regex/" title="regex">regex<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <br>
+      &copy; 2019 Wind Vane<br>
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+       &amp; theme based on  <a href="https://github.com/A-limon/pacman" target="_blank">pacman</a>
+    </div>
+  </div>
+</footer></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

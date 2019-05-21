@@ -1,0 +1,374 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>cpp | kohit&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Wind Vane">
+    
+    <meta name="description" content="声明和定义
+不需要分配空间的为声明（declaration），需要分配的为定义（definition），前者又称为定义性声明，后者为引用性声明。声明是告诉编译器哪里可以找到该符号。
+在一个作用域中可以重复声明，但不能重复定义。可以重复几次告诉编译器某个变量、函数已经在别处定义了，但不能重复多次地让编">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="kohit&#39;s blog">kohit&#39;s blog</a></h1>
+				<h2 class="blog-motto">D.va上线啦</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:kohit.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/02/24/cpp/" title="cpp" itemprop="url">cpp</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://kohit.github.io" title="Wind Vane">Wind Vane</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2018-02-24T07:49:32.000Z" itemprop="datePublished">2018-02-24</time>
+    更新日期:<time datetime="2019-05-21T08:04:05.495Z" itemprop="dateModified">2019-05-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#声明和定义"><span class="toc-number">1.</span> <span class="toc-text">声明和定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#inline、内联函数及成员函数写在类定义内部和外部的区别"><span class="toc-number">2.</span> <span class="toc-text">inline、内联函数及成员函数写在类定义内部和外部的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#explicit、implicit"><span class="toc-number">3.</span> <span class="toc-text">explicit、implicit</span></a></li></ol>
+		</div>
+		
+		<h1 id="声明和定义"><a href="#声明和定义" class="headerlink" title="声明和定义"></a>声明和定义</h1><ol>
+<li>不需要分配空间的为声明（declaration），需要分配的为定义（definition），前者又称为定义性声明，后者为引用性声明。声明是告诉编译器哪里可以找到该符号。</li>
+<li>在一个作用域中可以重复声明，但不能重复定义。可以重复几次告诉编译器某个变量、函数已经在别处定义了，但不能重复多次地让编译器为同一个变量、函数分配不同的存储空间。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">//声明</span><br><span class="line">extern int c;</span><br><span class="line">double sqrt(double x);</span><br><span class="line">extern int g(int, int);</span><br><span class="line">class foo;</span><br><span class="line">struct S;</span><br><span class="line">typedef long LONG_32;</span><br><span class="line">using namespace std;    // 声明std</span><br><span class="line">class foo&#123;  // 定义</span><br><span class="line">    static int a;   // 声明静态成员变量（赋值为定义）</span><br><span class="line">&#125;;</span><br><span class="line">extern &quot;C&quot; &#123; ... &#125;</span><br><span class="line">using IntVector = std::vector&lt;int&gt;; // c11</span><br><span class="line">enum X : int; // c11</span><br><span class="line">template &lt;class T&gt; class C; // c11</span><br><span class="line">; // c11</span><br><span class="line"></span><br><span class="line">//定义</span><br><span class="line">extern const int c = 1;</span><br><span class="line">double sqrt(double x)&#123; return x * x; &#125; // 定义sqrt和x</span><br><span class="line">int a;</span><br><span class="line">int b = 0;</span><br><span class="line">class foo &#123;&#125;;</span><br><span class="line">struct S &#123; int a; int b; &#125;; // 定义S，a和b</span><br><span class="line">static int a;</span><br><span class="line">enum &#123; up , down &#125;; // 定义up和down</span><br><span class="line"></span><br><span class="line">ref:</span><br><span class="line">stackoverflow.com/questions/1410563/what-is-the-difference-between-a-definition-and-a-declaration</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="inline、内联函数及成员函数写在类定义内部和外部的区别"><a href="#inline、内联函数及成员函数写在类定义内部和外部的区别" class="headerlink" title="inline、内联函数及成员函数写在类定义内部和外部的区别"></a>inline、内联函数及成员函数写在类定义内部和外部的区别</h1><p>内联函数指编译器编译时采用类似宏替换的操作将函数体嵌入每一个调用处，使得调用时不发生控制权转移（保存状态，压栈出栈，跳转等）</p>
+<ol>
+<li>编译器根据情况决定哪些函数为内联函数</li>
+<li>用inline标识函数为内联函数，但是否编译为内联函数由编译器决定。</li>
+<li>写在类定义内的成员函数默认添加inline标识，但在类定义外的成员函数不会自动添加inline标识。</li>
+<li>inline仅在类定义时生效<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class foo&#123;</span><br><span class="line">    int f(int a)&#123; return a + 1;&#125;    // 前面自动添加inline</span><br><span class="line">&#125;;</span><br><span class="line">int foo::g(int b)&#123; return b + 1; &#125;  // 前面不自动添加inline</span><br><span class="line">inline int foo::bar(int c)&#123; return c + 1; &#125; // 手动添加inline</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="explicit、implicit"><a href="#explicit、implicit" class="headerlink" title="explicit、implicit"></a>explicit、implicit</h1>  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/cpp/">cpp</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://kohit.github.io/2018/02/24/cpp/" data-title="cpp | kohit&#39;s blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2018/07/17/regex/" title="regex">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  regex</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2017/10/13/math/"  title="math">
+ <strong>NEXT:</strong><br/> 
+ <span>math
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#声明和定义"><span class="toc-number">1.</span> <span class="toc-text">声明和定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#inline、内联函数及成员函数写在类定义内部和外部的区别"><span class="toc-number">2.</span> <span class="toc-text">inline、内联函数及成员函数写在类定义内部和外部的区别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#explicit、implicit"><span class="toc-number">3.</span> <span class="toc-text">explicit、implicit</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Command-Alogorithm/" title="Command Alogorithm">Command Alogorithm<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Computer-Network/" title="Computer Network">Computer Network<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Machine-Learning/" title="Machine Learning">Machine Learning<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Mathematics/" title="Mathematics">Mathematics<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Command-Alogorithm/Transcode/" title="Transcode">Transcode<sup>1</sup></a></li>
+		
+			<li><a href="/categories/introduction/" title="introduction">introduction<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Client-Server/" title="Client-Server">Client-Server<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Combination/" title="Combination">Combination<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Computer-Network/" title="Computer Network">Computer Network<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Computer-Science/" title="Computer Science">Computer Science<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/MD5/" title="MD5">MD5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Machine-Learning/" title="Machine Learning">Machine Learning<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Mathematics/" title="Mathematics">Mathematics<sup>2</sup></a></li>
+		
+			<li><a href="/tags/NAT/" title="NAT">NAT<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/tags/P2P/" title="P2P">P2P<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Permutation/" title="Permutation">Permutation<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+			<li><a href="/tags/boost/" title="boost">boost<sup>1</sup></a></li>
+		
+			<li><a href="/tags/caffe/" title="caffe">caffe<sup>1</sup></a></li>
+		
+			<li><a href="/tags/command/" title="command">command<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cpp/" title="cpp">cpp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li><a href="/tags/mongo/" title="mongo">mongo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/regex/" title="regex">regex<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <br>
+      &copy; 2019 Wind Vane<br>
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+       &amp; theme based on  <a href="https://github.com/A-limon/pacman" target="_blank">pacman</a>
+    </div>
+  </div>
+</footer></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>boost | kohit&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Wind Vane">
+    
+    <meta name="description" content="#asio
+asio::io_service(io_context)
+任务池
+在该任务池注册过的线程可到池里取任务执行
+
+同个类实例的同个函数可同时执行
+
+
+asio::strand
+同个类实例的同个函数互斥执行
+不同类实例的同个函数可同时执行1234567891011121314151617181">
+    
+    
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="kohit&#39;s blog">kohit&#39;s blog</a></h1>
+				<h2 class="blog-motto">D.va上线啦</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:kohit.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2019/05/21/boost/" title="boost" itemprop="url">boost</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://kohit.github.io" title="Wind Vane">Wind Vane</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2019-05-21T07:22:51.000Z" itemprop="datePublished">2019-05-21</time>
+    更新日期:<time datetime="2019-05-21T08:04:11.175Z" itemprop="dateModified">2019-05-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#asio-io-service-io-context"><span class="toc-number">1.</span> <span class="toc-text">asio::io_service(io_context)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#asio-strand"><span class="toc-number">2.</span> <span class="toc-text">asio::strand</span></a></li></ol>
+		</div>
+		
+		<p>#asio</p>
+<h2 id="asio-io-service-io-context"><a href="#asio-io-service-io-context" class="headerlink" title="asio::io_service(io_context)"></a>asio::io_service(io_context)</h2><ul>
+<li>任务池</li>
+<li><p>在该任务池注册过的线程可到池里取任务执行</p>
+</li>
+<li><p>同个类实例的同个函数可同时执行</p>
+</li>
+</ul>
+<h2 id="asio-strand"><a href="#asio-strand" class="headerlink" title="asio::strand"></a>asio::strand</h2><ul>
+<li>同个类实例的同个函数互斥执行</li>
+<li>不同类实例的同个函数可同时执行<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">void func2(char a) &#123;</span><br><span class="line">	for (int i = 1; i &lt; 50; i++)</span><br><span class="line">		std::cout &lt;&lt; a &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line">class T1 &#123;</span><br><span class="line">private:</span><br><span class="line">	boost::asio::strand strand;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">	T1(boost::asio::io_service&amp; svc) :strand(svc) &#123;&#125;</span><br><span class="line">	void func1(char b);</span><br><span class="line">	void run();</span><br><span class="line">&#125;;</span><br><span class="line">void T1::func1(char b) &#123;</span><br><span class="line">		func2(b);</span><br><span class="line">	&#125;</span><br><span class="line">void T1::run() &#123;</span><br><span class="line">	strand.post(boost::bind(&amp;T1::func1, this, &apos;a&apos;));</span><br><span class="line">	strand.post(boost::bind(&amp;T1::func1, this, &apos;b&apos;));</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">    boost::asio::io_service ios;</span><br><span class="line">    // regist thread...</span><br><span class="line"></span><br><span class="line">	T1 t1(ios);</span><br><span class="line">	t1.run();</span><br><span class="line">    ios.run();</span><br><span class="line">    </span><br><span class="line">    //loop</span><br><span class="line"></span><br><span class="line">result:</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line">a</span><br><span class="line">...</span><br><span class="line">a</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">b</span><br><span class="line">...</span><br><span class="line">b</span><br></pre></td></tr></table></figure></li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/boost/">boost</a>
+  </div>
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://kohit.github.io/2019/05/21/boost/" data-title="boost | kohit&#39;s blog" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2019/05/21/Create-new-Post-in-Hexo/"  title="Create new Post in Hexo">
+ <strong>NEXT:</strong><br/> 
+ <span>Create new Post in Hexo
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#asio-io-service-io-context"><span class="toc-number">1.</span> <span class="toc-text">asio::io_service(io_context)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#asio-strand"><span class="toc-number">2.</span> <span class="toc-text">asio::strand</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Command-Alogorithm/" title="Command Alogorithm">Command Alogorithm<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Computer-Network/" title="Computer Network">Computer Network<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Machine-Learning/" title="Machine Learning">Machine Learning<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Mathematics/" title="Mathematics">Mathematics<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Command-Alogorithm/Transcode/" title="Transcode">Transcode<sup>1</sup></a></li>
+		
+			<li><a href="/categories/introduction/" title="introduction">introduction<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Client-Server/" title="Client-Server">Client-Server<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Combination/" title="Combination">Combination<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Computer-Network/" title="Computer Network">Computer Network<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Computer-Science/" title="Computer Science">Computer Science<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		
+			<li><a href="/tags/MD5/" title="MD5">MD5<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Machine-Learning/" title="Machine Learning">Machine Learning<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Mathematics/" title="Mathematics">Mathematics<sup>2</sup></a></li>
+		
+			<li><a href="/tags/NAT/" title="NAT">NAT<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Nodejs/" title="Nodejs">Nodejs<sup>2</sup></a></li>
+		
+			<li><a href="/tags/P2P/" title="P2P">P2P<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Permutation/" title="Permutation">Permutation<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+			<li><a href="/tags/boost/" title="boost">boost<sup>1</sup></a></li>
+		
+			<li><a href="/tags/caffe/" title="caffe">caffe<sup>1</sup></a></li>
+		
+			<li><a href="/tags/command/" title="command">command<sup>1</sup></a></li>
+		
+			<li><a href="/tags/cpp/" title="cpp">cpp<sup>1</sup></a></li>
+		
+			<li><a href="/tags/linux/" title="linux">linux<sup>1</sup></a></li>
+		
+			<li><a href="/tags/mongo/" title="mongo">mongo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/regex/" title="regex">regex<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      <br>
+      &copy; 2019 Wind Vane<br>
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+       &amp; theme based on  <a href="https://github.com/A-limon/pacman" target="_blank">pacman</a>
+    </div>
+  </div>
+</footer></footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+
+
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
